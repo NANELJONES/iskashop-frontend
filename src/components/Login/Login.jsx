@@ -29,8 +29,11 @@ const Login = () => {
       )
       .then((res) => {
         toast.success("Login Success!");
+        setEmail("")
+        setPassword("")
         navigate("/profile");
-        window.location.reload(true); 
+
+        // window.location.reload(true); 
       })
       .catch((err) => {
         toast.error(err.response.data.message);
