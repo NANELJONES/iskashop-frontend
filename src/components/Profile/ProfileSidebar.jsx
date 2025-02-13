@@ -24,7 +24,7 @@ const ProfileSidebar = ({ active, setActive }) => {
     { id: 3, name: "Refunds", icon: HiOutlineReceiptRefund },
     // { id: 4, name: "Inbox", icon: AiOutlineMessage, onClick: () => navigate("/inbox") },
     { id: 5, name: "Track Order", icon: MdOutlineTrackChanges },
-    { id: 6, name: "Change Password", icon: RiLockPasswordLine },
+    // { id: 6, name: "Change Password", icon: RiLockPasswordLine },
     { id: 7, name: "Address", icon: TbAddressBook },
   ];
 
