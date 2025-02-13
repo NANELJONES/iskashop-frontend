@@ -21,9 +21,9 @@ const ProfileSidebar = ({ active, setActive }) => {
   const menuItems = [
     { id: 1, name: "Profile", icon: RxPerson },
     { id: 2, name: "Orders", icon: HiOutlineShoppingBag },
-    { id: 3, name: "Refunds", icon: HiOutlineReceiptRefund },
+    // { id: 3, name: "Refunds", icon: HiOutlineReceiptRefund },
     // { id: 4, name: "Inbox", icon: AiOutlineMessage, onClick: () => navigate("/inbox") },
-    { id: 5, name: "Track Order", icon: MdOutlineTrackChanges },
+    // { id: 5, name: "Track Order", icon: MdOutlineTrackChanges },
     // { id: 6, name: "Change Password", icon: RiLockPasswordLine },
     { id: 7, name: "Address", icon: TbAddressBook },
   ];
