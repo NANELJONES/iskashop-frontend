@@ -33,7 +33,7 @@ const ActivationPage = () => {
     <div
       className="w-full max-w-[1000px] mx-auto"
     >
-      {!error ? (
+      {error ? (
         <p>Your token is expired!</p>
       ) : (
         <div className="flex flex-col items-center gap-[1em] mx-auto  ">
