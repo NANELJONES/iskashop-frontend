@@ -62,7 +62,7 @@ export const updateUserInformation =
         {
           withCredentials: true,
           headers: {
-            "Access-Control-Allow-Credentials": true,
+            "Content-Type": "application/json",
           },
         }
       );
@@ -74,7 +74,7 @@ export const updateUserInformation =
     } catch (error) {
       dispatch({
         type: "updateUserInfoFailed",
-        payload: error.response.data.message,
+        payload: error,
       });
     }
   };

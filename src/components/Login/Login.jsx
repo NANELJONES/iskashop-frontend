@@ -29,7 +29,7 @@ const Login = () => {
       )
       .then((res) => {
         toast.success("Login Success!");
-        navigate("/");
+        navigate("/profile");
         window.location.reload(true); 
       })
       .catch((err) => {
@@ -39,11 +39,11 @@ const Login = () => {
 
   return (
 <>
-<Header/>
+{/* <Header/> */}
     <div className="min-h-screen bg-gray-50 flex max-w-[1300px] mx-auto flex-col justify-center py-12 sm:px-6 lg:px-8">
    <div className="flex justify-center flex-col md:flex-row items-center px-4 ">
 
-   <div className="lg:w-[40%] w-2/3 "><img src='/User/user_login.svg' alt="" classNamw ="w-full" /></div>
+   <div className="lg:w-[40%] w-2/3 "><img src='/User/user_login.svg' alt="" className ="w-full" /></div>
       {/* this is the forms  */}
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
             {/* these are the buttons */}
@@ -162,7 +162,7 @@ const Login = () => {
    
 
     </div>
-    <Footer/>
+    {/* <Footer/> */}
     </>
   );
 };

@@ -12,23 +12,24 @@ import Filter from "../components/Filter/Filter";
 
 const HomePage = () => {
   return (
-    <div>
-        <Header activeHeading={1} />
-        <Hero />
+    <div className='items-center flex flex-col mt-10 '>
+      <Header activeHeading={1} />
+       {/*    <Hero /> */}
    
-       
+       <h3 className='text-center'>Page Still Under Development</h3>
         {/* <Events /> */}
 
-        <div className='flex'>
-          <Filter />
+        <div className='flex mt-10'>
+          {/* <Filter /> */}
                   <div>
+                  {/* <Sponsored /> */}
                   <BestDeals />
-              <FeaturedProduct />
-              <Sponsored />
+              {/* <FeaturedProduct /> */}
+            
               </div>
         </div>
  
-        <Footer />
+        {/* <Footer /> */}
     </div>
   )
 }

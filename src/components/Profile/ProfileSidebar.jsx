@@ -22,7 +22,7 @@ const ProfileSidebar = ({ active, setActive }) => {
     { id: 1, name: "Profile", icon: RxPerson },
     { id: 2, name: "Orders", icon: HiOutlineShoppingBag },
     { id: 3, name: "Refunds", icon: HiOutlineReceiptRefund },
-    { id: 4, name: "Inbox", icon: AiOutlineMessage, onClick: () => navigate("/inbox") },
+    // { id: 4, name: "Inbox", icon: AiOutlineMessage, onClick: () => navigate("/inbox") },
     { id: 5, name: "Track Order", icon: MdOutlineTrackChanges },
     { id: 6, name: "Change Password", icon: RiLockPasswordLine },
     { id: 7, name: "Address", icon: TbAddressBook },
@@ -49,9 +49,9 @@ const ProfileSidebar = ({ active, setActive }) => {
       </div>
 
       <div className="p-2 ">
-        {menuItems.map((item) => (
+        {menuItems.map((item, index) => (
           <div
-            key={item.id}
+            key={index}
             className={`${
               active === item.id ? "bg-primary_color" : "#17637C"
             } flex md:p-4 items-center justify-center md:items-start md:justify-start  py-4 rounded-md lg:rounded-none cursor-pointer w-full mb-4`}

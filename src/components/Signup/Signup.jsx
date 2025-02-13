@@ -50,7 +50,7 @@ const Singup = () => {
 
   return (
 <>
-<Header/>
+{/* <Header/> */}
 <div className="min-h-screen max-w-[1300px] mx-auto bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       {/* Loading Overlay */}
       {loading && (
@@ -198,7 +198,7 @@ const Singup = () => {
       </div>
     </div>
     </div>
-    <Footer/>
+    {/* <Footer/> */}
 </>
   );
 };
