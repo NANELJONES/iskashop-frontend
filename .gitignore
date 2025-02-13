@@ -1,0 +1,42 @@
+# Node.js
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+
+# Build output
+dist/
+build/
+out/
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Coverage
+coverage/
+
+# Testing
+*.log
+
+# JetBrains IDE
+.idea/
+
+# Docker
+docker-compose.override.yml
+.dockerignore
+
+# React / Next.js specific
+.next/
+build/
+
+# .env files for different environments
+.env.local
+.env.development
+.env.production

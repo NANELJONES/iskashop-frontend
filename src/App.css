@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+  scroll-behavior: smooth;
+}
+body {
+  font-family: Poppins;
+    background: #ffffff;
+    scroll-behavior: smooth;
+}
+input,select{
+  outline: none;
+}
+.batch_heart{
+  background: tomato;
+  width: 15px;
+  height: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  position: absolute;
+  right: -24%;
+  top: -9%;
+  cursor: pointer;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.no_scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no_scroll {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+
+.address_modal label{
+  @apply text-primary_color text-sm
+}
+input{
+  @apply  border border-primary_color text-primary_color rounded-md 
+}
+
+@layer base {
+
+ 
+  p{
+    @apply text-[0.8em] md:text-[0.9em]  duration-500 cursor-pointer   text-primary_color 
+  }
+  h1 {
+    @apply text-primary_color text-5xl  leading-[1.2];
+  }
+  
+  h2 {
+    @apply text-primary_color text-4xl  leading-[1.3];
+  }
+  
+  h3 {
+    @apply text-primary_color text-3xl  leading-[1.3];
+  }
+  
+  h4 {
+    @apply text-primary_color text-2xl leading-[1.3];
+  }
+  
+  h5, pre {
+    @apply text-primary_color text-xl  leading-[1.4];
+  }
+  
+  h6 ,label{
+    @apply text-primary_color text-lg  leading-[1.4];
+  }
+  
+  .rich-text h1,
+.rich-text h2,
+.rich-text h3,
+.rich-text h4,
+.rich-text h5,
+.rich-text h6,
+.rich-text p,
+.rich-text span {
+  color: white !important;
+}
+  
+  
+
+
+.custom-prev,
+.custom-next {
+  position: absolute;
+  top: 60%;
+  transform: translateY(-50%);
+  background-color: transparent;
+  background-color: white;
+  color: rgb(255, 255, 255);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.custom-prev:hover,
+.custom-next:hover {
+  background-color: #ffffff;
+}
+
+.custom-prev {
+  left: -20px;
+}
+
+.slick-arrow-custom{
+  width: 100px;
+  height: 100px;
+}
+
+.custom-next {
+  right: -20px;
+}
+ 
+
+ 
+  /* ... */
+}
