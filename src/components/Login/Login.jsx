@@ -8,6 +8,27 @@ import { toast } from "react-toastify";
 import Header from "../Layout/Header";
 import Footer from "../Layout/Footer";
 
+const instance = axios.create({
+    baseURL: process.env.server || 'http://localhost:8000',
+    withCredentials: true,
+    headers: {
+        'Content-Type': 'application/json',
+    }
+});
+
+// Add an interceptor to handle authentication
+instance.interceptors.request.use(
+    (config) => {
+        const token = localStorage.getItem('token'); // or get from your auth state
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
 
 const Login = () => {
   const navigate = useNavigate();
@@ -18,26 +39,28 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await axios
-      .post(
+    try {
+      const res = await instance.post(
         `${server}/user/login-user`,
         {
           email,
           password,
-        },
-        { withCredentials: true }
-      )
-      .then((res) => {
-        toast.success("Login Success!");
-        setEmail("")
-        setPassword("")
-        navigate("/profile");
+        }
+      );
+      
+      // Store the token
+      if (res.data.token) {
+          localStorage.setItem('token', res.data.token);
+          // or store in your auth state management
+      }
 
-        // window.location.reload(true); 
-      })
-      .catch((err) => {
-        toast.error(err.response.data.message);
-      });
+      toast.success("Login Success!");
+      
+      navigate("/profile");
+      
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Login failed");
+    }
   };
 
   return (
