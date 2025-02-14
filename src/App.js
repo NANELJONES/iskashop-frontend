@@ -75,10 +75,10 @@ const App = () => {
   }
   useEffect(() => {
     Store.dispatch(loadUser());
-    Store.dispatch(loadSeller());
-    Store.dispatch(getAllProducts());
-    Store.dispatch(getAllEvents());
-    getStripeApikey();
+    // Store.dispatch(loadSeller());
+    // Store.dispatch(getAllProducts());
+    // Store.dispatch(getAllEvents());
+    // getStripeApikey();
   }, []);
 
   return (
