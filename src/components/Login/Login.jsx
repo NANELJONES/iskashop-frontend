@@ -21,13 +21,13 @@ const Login = () => {
   const dispatch = useDispatch()
   const { isAuthenticated } = useSelector((state) => state.user);
   useEffect(() => {
-    if (isAuthenticated) {
-      toast.success(isAuthenticated);
-      console.log(isAuthenticated);
+    if (isAuthenticated === true) {
+      toast.success("Successfully authenticated!");
+      
     }else{
-      toast.error('Is Not Authenticated : ', isAuthenticated);
+      toast.error("Failed to authenticate!");
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated,]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

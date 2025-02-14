@@ -25,7 +25,7 @@ import axios from "axios";
 import { getAllOrdersOfUser } from "../../redux/actions/order";
 
 const ProfileContent = ({ active, setActive }) => {
-  const { user, error, successMessage } = useSelector((state) => state.user);
+  const { user, error, successMessage , isAuthenticated} = useSelector((state) => state.user);
   const [name, setName] = useState(user && user.name);
   const [email, setEmail] = useState(user && user.email);
   const [phoneNumber, setPhoneNumber] = useState(user && user.phoneNumber);
@@ -34,6 +34,7 @@ const ProfileContent = ({ active, setActive }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    
     if (error) {
       toast.error(error);
       dispatch({ type: "clearErrors" });
@@ -44,6 +45,15 @@ const ProfileContent = ({ active, setActive }) => {
     }
   }, [error, successMessage]);
 
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      toast.success('Is Authenticated : ', isAuthenticated);
+      console.log(isAuthenticated);
+    }else{
+      toast.error('Is Not Authenticated : ', isAuthenticated);
+    }
+  }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(updateUserInformation(name, email, phoneNumber));
