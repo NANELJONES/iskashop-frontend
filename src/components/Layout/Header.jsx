@@ -177,15 +177,17 @@ const Header = ({ activeHeading }) => {
               <div className="relative cursor-pointer mr-[15px]">
                 {isAuthenticated ? (
                   <Link to="/profile">
-                    <img
+                    <p>{`Hello, ${user?.name}`}</p>
+                    {/* <img
                       src={`${user?.avatar?.url}`}
                       className="w-[35px] h-[35px] rounded-full"
                       alt=""
-                    />
+                    /> */}
                   </Link>
                 ) : (
                   <Link to="/login">
                     <CgProfile size={30} color="rgb(255 255 255 / 83%)" />
+                    
                   </Link>
                 )}
               </div>
@@ -301,21 +303,20 @@ const Header = ({ activeHeading }) => {
               </div>
 
               <Navbar active={activeHeading} />
-              <div className={`${styles.button} ml-4 !rounded-[4px]`}>
-                {/* <Link to="/shop-create">
-                  <p className="text-secondary_color flex items-center">
+              {/* <div className={`${styles.button} ml-4 !rounded-[4px]`}>
+                <Link to="/shop-create">
+                  <p className="text-secondary_color bg-primary_color p-4 flex items-center">
                     Become Seller <IoIosArrowForward className="ml-1" />
                   </p>
-                </Link> */}
+                </Link> 
               </div>
-              <br />
-              <br />
-              <br />
+             */}
 
-              <div className="flex w-full justify-center">
+              <div className="flex w-full border-t-[1px] py-4 px-4 border-[#0000003d]  justify-start">
                 {isAuthenticated ? (
                   <div>
-                    <Link to="/profile">
+                    <Link to="/profile" className="flex items-center">
+                    <p>{`Hello, ${user?.name}`}</p>
                       <img
                         src={`${user.avatar?.url}`}
                         alt=""
@@ -329,13 +330,13 @@ const Header = ({ activeHeading }) => {
                       to="/login"
                       className="text-[18px] pr-[10px] text-[#000000b7]"
                     >
-                      Login /
+                    <button className="bg-primary_color text-white px-6 py-2 rounded-md"><p className="text-text_color">Login</p></button>  
                     </Link>
                     <Link
                       to="/sign-up"
                       className="text-[18px] text-[#000000b7]"
                     >
-                      Sign up
+                       <button className="bg-primary_color text-white px-6 py-2 rounded-md"><p className="text-text_color">Sign up</p></button>  
                     </Link>
                   </>
                 )}
