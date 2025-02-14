@@ -79,7 +79,7 @@ const Singup = () => {
          Customer Sign Up
         </h2>
 
-        <h6 className="text-left text-primary_color text-sm">A product we invented over 150 years ago, and one we have been reinven</h6>
+        <h6 className="text-left text-primary_color text-sm">Sign up to continue and get access to all the features of Iska Shop</h6>
 
 
       </div>

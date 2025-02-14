@@ -50,8 +50,8 @@ const Login = () => {
         //   payload: res.data.user,
         // });
      
-      //  navigate("/profile");
-      //   window.location.reload(true); 
+       navigate("/profile");
+        window.location.reload(true); 
       })
       .catch((err) => {
         toast.error(err.response.data.message);
@@ -79,7 +79,7 @@ const Login = () => {
         Customer <br/>
         Login and Sign up 
         </h2>
-        <p>A product we invented over 150 years ago, and one we have been reinven</p>
+        <p>Login into your account to continue and get access to all the features of Iska Shop</p>
       </div>
         <div className="bg-white py-8 px-4   ">
           
