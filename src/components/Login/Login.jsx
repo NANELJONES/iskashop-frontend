@@ -24,6 +24,8 @@ const Login = () => {
     if (isAuthenticated) {
       toast.success(isAuthenticated);
       console.log(isAuthenticated);
+    }else{
+      toast.error('Is Not Authenticated : ', isAuthenticated);
     }
   }, [isAuthenticated]);
 
