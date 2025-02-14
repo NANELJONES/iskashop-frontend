@@ -4,6 +4,8 @@ import styles from "../../styles/styles";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { server } from "../../server";
+import { useDispatch } from "react-redux";
+import { loadUser } from "../../redux/actions/user";
 import { toast } from "react-toastify";
 import Header from "../Layout/Header";
 import Footer from "../Layout/Footer";
@@ -14,6 +16,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
+  const dispatch = useDispatch()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,11 +32,18 @@ const Login = () => {
       )
       .then((res) => {
         toast.success("Login Success!");
-        navigate("/profile");
-        window.location.reload(true); 
+        console.log(res)
+        dispatch({
+          type: "LoadUserSuccess",
+          payload: res.user,
+        });
+        dispatch(loadUser())
+       navigate("/profile");
+        // window.location.reload(true); 
       })
       .catch((err) => {
-        toast.error(err.response.data.message);
+        toast.error("Could Not Login");
+        console.log(err)
       });
   };
 

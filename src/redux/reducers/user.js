@@ -2,6 +2,9 @@ import { createReducer } from "@reduxjs/toolkit";
 
 const initialState = {
   isAuthenticated: false,
+  isLoading: false,
+  user: null,
+  error: null
 };
 
 export const userReducer = createReducer(initialState, {
@@ -28,8 +31,11 @@ export const userReducer = createReducer(initialState, {
     state.user = action.payload;
   },
   updateUserInfoFailed: (state, action) => {
-    state.loading = false;
-    state.error = action.payload;
+    return {
+      ...state,
+      loading: false,
+      error: action.payload,
+    };
   },
 
   // update user address
