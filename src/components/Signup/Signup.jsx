@@ -28,6 +28,18 @@ const Singup = () => {
       return;
     }
 
+    // Add phone number validation
+    if (!/^\d+$/.test(phoneNumber)) {
+      toast.error("Phone number must contain only numbers");
+      return;
+    }
+
+    // Add password length validation
+    if (password.length <= 4) {
+      toast.error("Password must be longer than 4 characters");
+      return;
+    }
+
     setLoading(true);
     
     axios
@@ -132,9 +144,10 @@ const Singup = () => {
                   </label>
                   <div className="mt-1">
                     <input
-                      type="tel"
+                      type="number"
                       name="phoneNumber"
                       autoComplete="tel"
+                   
                       required
                       value={phoneNumber}
                       onChange={(e) => setphoneNumber(e.target.value)}
