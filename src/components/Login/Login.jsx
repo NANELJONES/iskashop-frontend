@@ -4,9 +4,11 @@ import styles from "../../styles/styles";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { server } from "../../server";
-import { useDispatch } from "react-redux";
+import { useDispatch , useSelector} from "react-redux";
 import { loadUser } from "../../redux/actions/user";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
+
 import Header from "../Layout/Header";
 import Footer from "../Layout/Footer";
 
@@ -17,6 +19,13 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch()
+  const { isAuthenticated } = useSelector((state) => state.user);
+  useEffect(() => {
+    if (isAuthenticated) {
+      toast.success(isAuthenticated);
+      console.log(isAuthenticated);
+    }
+  }, [isAuthenticated]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
