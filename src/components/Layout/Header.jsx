@@ -177,7 +177,7 @@ const Header = ({ activeHeading }) => {
               <div className="relative cursor-pointer mr-[15px]">
                 {isAuthenticated ? (
                   <Link to="/profile">
-                    <p>{`Hello, ${user?.name}`}</p>
+                    <p className="text-text_color">{`Hello, ${user?.name}`}</p>
                     {/* <img
                       src={`${user?.avatar?.url}`}
                       className="w-[35px] h-[35px] rounded-full"
@@ -315,13 +315,13 @@ const Header = ({ activeHeading }) => {
               <div className="flex w-full border-t-[1px] py-4 px-4 border-[#0000003d]  justify-start">
                 {isAuthenticated ? (
                   <div>
-                    <Link to="/profile" className="flex items-center">
-                    <p>{`Hello, ${user?.name}`}</p>
-                      <img
+                    <Link to="/profile" className="flex  gap-4 items-center">
+                    <h5>{`Hello, ${user?.name}`}</h5>
+                      {/* <img
                         src={`${user.avatar?.url}`}
                         alt=""
                         className="w-[60px] h-[60px] rounded-full border-[3px] border-[#0eae88]"
-                      />
+                      /> */}
                     </Link>
                   </div>
                 ) : (
