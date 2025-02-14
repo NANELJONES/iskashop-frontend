@@ -46,10 +46,10 @@ const Login = () => {
         console.log(res)
         dispatch({
           type: "LoadUserSuccess",
-          payload: res.user,
+          payload: res.data.user,
         });
         dispatch(loadUser())
-       navigate("/profile");
+      //  navigate("/profile");
         // window.location.reload(true); 
       })
       .catch((err) => {
