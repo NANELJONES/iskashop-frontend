@@ -44,13 +44,13 @@ const Login = () => {
       .then((res) => {
         toast.success("Login Success!");
         console.log(res)
-        dispatch({
-          type: "LoadUserSuccess",
-          payload: res.data.user,
-        });
-        dispatch(loadUser())
-      //  navigate("/profile");
-        // window.location.reload(true); 
+        // dispatch({
+        //   type: "LoadUserSuccess",
+        //   payload: res.data.user,
+        // });
+     
+       navigate("/profile");
+        window.location.reload(true); 
       })
       .catch((err) => {
         toast.error("Could Not Login");
