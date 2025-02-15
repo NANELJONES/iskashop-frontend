@@ -5,9 +5,11 @@ import axios from 'axios'
 const Try = () => {
   
 const sendRequest = async () => {
-axios.post(`${server}/user/send_grid`, {
+axios.post(`http://localhost:8000/api/v2/user/create-user`, {
+  name: "John Doe",
     email: "eruditejones@gmail.com",
-     message: "Hello, this is a test email"
+    phoneNumber: "07060706060",
+     password: "password",
   }).then((res) => {
     alert(res.data.message)
     console.log(res)
