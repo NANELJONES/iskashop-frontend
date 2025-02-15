@@ -5,7 +5,7 @@ import axios from 'axios'
 const Try = () => {
   
 const sendRequest = async () => {
-axios.post(`http://localhost:8000/api/v2/user/create-user`, {
+axios.post(`${server}/user/create-user`, {
   name: "John Doe",
     email: "eruditejones@gmail.com",
     phoneNumber: "07060706060",
