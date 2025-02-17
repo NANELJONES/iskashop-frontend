@@ -2034,6 +2034,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/cookie@^0.6.0":
+  version "0.6.0"
+  resolved "https://registry.npmjs.org/@types/cookie/-/cookie-0.6.0.tgz"
+  integrity sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==
+
 "@types/eslint-scope@^3.7.3":
   version "3.7.4"
   resolved "https://registry.npmjs.org/@types/eslint-scope/-/eslint-scope-3.7.4.tgz"
@@ -2091,10 +2096,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/hoist-non-react-statics@^3.3.1":
-  version "3.3.1"
-  resolved "https://registry.npmjs.org/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.1.tgz"
-  integrity sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA==
+"@types/hoist-non-react-statics@^3.3.1", "@types/hoist-non-react-statics@^3.3.5":
+  version "3.3.6"
+  resolved "https://registry.npmjs.org/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.6.tgz"
+  integrity sha512-lPByRJUer/iN/xa4qpyL0qmL11DqNW81iU/IG1S3uvRUq4oKagz8VCxZjiWkumgt66YT3vOdDgZ0o32sGKtCEw==
   dependencies:
     "@types/react" "*"
     hoist-non-react-statics "^3.3.0"
@@ -3480,6 +3485,11 @@ cookie-signature@1.0.6:
   version "1.0.6"
   resolved "https://registry.npmjs.org/cookie-signature/-/cookie-signature-1.0.6.tgz"
   integrity sha512-QADzlaHc8icV8I7vbaJXJwod9HWYp8uCqf1xa4OfNu1T7JVxQIrUgOWtHdNDtPiywmFbiS12VjotIXLrKM3orQ==
+
+cookie@^0.7.2:
+  version "0.7.2"
+  resolved "https://registry.npmjs.org/cookie/-/cookie-0.7.2.tgz"
+  integrity sha512-yki5XnKuf750l50uGTllt6kKILY4nQ1eNIQatoXEByZ5dWgnKqbnqmTrBE5B4N7lrMJKQ2ytWMiTO2o0v6Ew/w==
 
 cookie@0.5.0:
   version "0.5.0"
@@ -6813,6 +6823,11 @@ mkdirp@~0.5.1:
   dependencies:
     minimist "^1.2.6"
 
+moment@^2.30.1:
+  version "2.30.1"
+  resolved "https://registry.npmjs.org/moment/-/moment-2.30.1.tgz"
+  integrity sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==
+
 ms@^2.1.1, ms@2.1.2:
   version "2.1.2"
   resolved "https://registry.npmjs.org/ms/-/ms-2.1.2.tgz"
@@ -7981,6 +7996,15 @@ react-app-polyfill@^3.0.0:
     raf "^3.4.1"
     regenerator-runtime "^0.13.9"
     whatwg-fetch "^3.6.2"
+
+react-cookie@^7.2.2:
+  version "7.2.2"
+  resolved "https://registry.npmjs.org/react-cookie/-/react-cookie-7.2.2.tgz"
+  integrity sha512-e+hi6axHcw9VODoeVu8WyMWyoosa1pzpyjfvrLdF7CexfU+WSGZdDuRfHa4RJgTpfv3ZjdIpHE14HpYBieHFhg==
+  dependencies:
+    "@types/hoist-non-react-statics" "^3.3.5"
+    hoist-non-react-statics "^3.3.2"
+    universal-cookie "^7.0.0"
 
 react-dev-utils@^12.0.1:
   version "12.0.1"
@@ -9358,6 +9382,14 @@ unique-string@^2.0.0:
   integrity sha512-uNaeirEPvpZWSgzwsPGtU2zVSTrn/8L5q/IexZmH0eH6SA73CmAA5U4GwORTxQAZs95TAXLNqeLoPPNO5gZfWg==
   dependencies:
     crypto-random-string "^2.0.0"
+
+universal-cookie@^7.0.0:
+  version "7.2.2"
+  resolved "https://registry.npmjs.org/universal-cookie/-/universal-cookie-7.2.2.tgz"
+  integrity sha512-fMiOcS3TmzP2x5QV26pIH3mvhexLIT0HmPa3V7Q7knRfT9HG6kTwq02HZGLPw0sAOXrAmotElGRvTLCMbJsvxQ==
+  dependencies:
+    "@types/cookie" "^0.6.0"
+    cookie "^0.7.2"
 
 universalify@^0.2.0:
   version "0.2.0"

@@ -8,12 +8,15 @@ import { useDispatch , useSelector} from "react-redux";
 import { loadUser } from "../../redux/actions/user";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
+import { useCookies } from "react-cookie";
 
 import Header from "../Layout/Header";
 import Footer from "../Layout/Footer";
 
 
 const Login = () => {
+  const [cookies, setCookie] = useCookies(["token"]);
+
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,7 +27,7 @@ const Login = () => {
   useEffect(() => {
     if (isAuthenticated === true) {
       toast.success("Successfully authenticated!");
-      
+
     }else{
       toast.error("Failed to authenticate!");
     }
@@ -45,10 +48,12 @@ const Login = () => {
       )
       .then((res) => {
         toast.success("Login Success!");
+        setCookie("token", res.data.token);
+        console.log("this is the token : ", res.data.token);
         console.log(res)
         console.log("this is the  is authenticated : ", isAuthenticated);
-        navigate("/profile");
-        window.location.reload(true); 
+        // navigate("/profile");
+        // window.location.reload(true);
       })
       .catch((err) => {
         toast.error(err.response.data.message);
@@ -70,7 +75,7 @@ const Login = () => {
           </div>
         </div>
       )}
-      
+
       {/* <Header/> */}
       <div className="min-h-screen bg-gray-50 flex max-w-[1300px] mx-auto flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="flex justify-center flex-col md:flex-row items-center px-4 ">
@@ -87,12 +92,12 @@ const Login = () => {
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
               <h2 className="text-left">
                 Customer <br/>
-                Login and Sign up 
+                Login and Sign up
               </h2>
               <p>Login into your account to continue and get access to all the features of Iska Shop</p>
             </div>
             <div className="bg-white py-8 px-4   ">
-              
+
               <form className="space-y-6" onSubmit={handleSubmit}>
                 <div>
                   <label
@@ -189,9 +194,9 @@ const Login = () => {
 
 
         </div>
-        
-        
-        
+
+
+
 
       </div>
       {/* <Footer/> */}

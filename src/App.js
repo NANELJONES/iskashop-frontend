@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { CookiesProvider, useCookies } from "react-cookie";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import {
@@ -82,22 +83,21 @@ const App = () => {
   }, []);
 
   return (
+    <CookiesProvider>
     <BrowserRouter>
-
-       
+      
           <Routes>
             <Route
               path="/payment"
               element={
                 <ProtectedRoute>
-                  <HomePage />
-                  {/* <PaymentPage /> */}
+                  <PaymentPage />
                 </ProtectedRoute>
               }
             />
           </Routes>
-     
-    
+      
+   
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
@@ -342,6 +342,7 @@ const App = () => {
         theme="dark"
       />
     </BrowserRouter>
+    </CookiesProvider>
   );
 };
 

@@ -27,6 +27,7 @@ const Checkout = () => {
   }, []);
 
   const paymentSubmit = () => {
+    console.log("address 1: " , address1, "address 2: " , address2, "zipCode: " , zipCode, "country: " , country, "city: " , city)
    if(address1 === "" || address2 === "" || zipCode === null || country === "" || city === ""){
       toast.error("Please choose your delivery address!")
    } else{
