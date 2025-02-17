@@ -9,6 +9,10 @@ export const loadUser = () => async (dispatch) => {
     });
     const { data } = await axios.get(`${server}/user/getuser`, {
       withCredentials: true,
+      headers: {
+        'Access-Control-Allow-Origin': '*', 
+        'Content-Type': 'application/json'
+    }
     });
     console.log("this is the data : ", data);
     dispatch({
