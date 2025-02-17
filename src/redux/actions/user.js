@@ -9,8 +9,9 @@ export const loadUser = () => async (dispatch) => {
     });
     const { data } = await axios.get(`${server}/user/getuser`, {
       withCredentials: true,
+      credentials: 'include',
       headers: {
-        'Access-Control-Allow-Origin': '*', 
+        'Access-Control-Allow-Origin': 'https://iskashop-backend.vercel.app/', 
         'Content-Type': 'application/json'
     }
     });
