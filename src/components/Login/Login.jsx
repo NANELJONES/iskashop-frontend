@@ -52,8 +52,8 @@ const Login = () => {
         console.log("this is the token : ", res.data.token);
         console.log(res)
         console.log("this is the  is authenticated : ", isAuthenticated);
-        // navigate("/profile");
-        // window.location.reload(true);
+        navigate("/profile");
+        window.location.reload(true);
       })
       .catch((err) => {
         toast.error(err.response.data.message);
