@@ -8,6 +8,7 @@ import Events from "../components/Events/Events";
 import Sponsored from "../components/Route/Sponsored";
 import Footer from "../components/Layout/Footer";
 import Filter from "../components/Filter/Filter";
+import Payment from "../components/Payment/Payment";
 
 
 const HomePage = () => {

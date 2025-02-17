@@ -11,23 +11,25 @@ import { RxPerson } from "react-icons/rx";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { server } from "../../server";
+import { AiOutlineHeart } from "react-icons/ai";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 
-const ProfileSidebar = ({ active, setActive }) => {
+const ProfileSidebar = ({ active, setActive, isLoading, setIsLoading }) => {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
 
   const menuItems = [
     
-    { id: 1, name: "Orders", icon: HiOutlineShoppingBag },
-    { id: 2, name: "Profile", icon: RxPerson },
+    { id: 2, name: "Orders", icon: HiOutlineShoppingBag },
+    { id: 1, name: "Profile", icon: RxPerson },
    
     // { id: 3, name: "Refunds", icon: HiOutlineReceiptRefund },
     // { id: 4, name: "Inbox", icon: AiOutlineMessage, onClick: () => navigate("/inbox") },
-    { id: 5, name: "Payment", icon: MdOutlineTrackChanges },
-    // { id: 6, name: "Change Password", icon: RiLockPasswordLine },
+    // { id: 5, name: "Payment", icon: MdOutlineTrackChanges },
+    { id: 6, name: "Change Password", icon: RiLockPasswordLine },
     { id: 7, name: "Address", icon: TbAddressBook },
+    { id: 8, name: "Wishlist", icon: AiOutlineHeart },
   ];
 
   const logoutHandler = () => {

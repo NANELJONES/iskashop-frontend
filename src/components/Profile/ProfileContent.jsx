@@ -12,6 +12,7 @@ import { Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { MdTrackChanges } from "react-icons/md";
 import { RxCross1 } from "react-icons/rx";
+import ProfileWishlist from "../Wishlist/ProfileWishlist";
 import {
   deleteUserAddress,
   loadUser,
@@ -24,7 +25,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { getAllOrdersOfUser } from "../../redux/actions/order";
 
-const ProfileContent = ({ active, setActive }) => {
+const ProfileContent = ({ active, setActive, isLoading, setIsLoading }) => {
   const { user, error, successMessage , isAuthenticated} = useSelector((state) => state.user);
   const [name, setName] = useState(user && user.name);
   const [email, setEmail] = useState(user && user.email);
@@ -163,6 +164,7 @@ const ProfileContent = ({ active, setActive }) => {
                   />
                 </div>
 
+
                 {/* <div className=" w-[100%] 800px:w-[50%]">
                   <label className="block pb-2">Enter your password</label>
                   <input
@@ -178,6 +180,9 @@ const ProfileContent = ({ active, setActive }) => {
 
                 
               </div>
+              <p onClick={()=>{
+                setActive(6);
+              }}>Reset Password</p>
 
               <input
                 className={`w-[150px] bg-secondary_color h-[50px] flex items-center justify-center text-center text-text_color rounded-[3px] mt-8 cursor-pointer`}
@@ -222,6 +227,13 @@ const ProfileContent = ({ active, setActive }) => {
       {active === 7 && (
         <div>
           <Address />
+        </div>
+      )}
+
+         {/*  user Wishlist */}
+         {active === 8 && (
+        <div>
+          <ProfileWishlist />
         </div>
       )}
     </div>
@@ -519,7 +531,7 @@ const ChangePassword = () => {
         <form
           aria-required
           onSubmit={passwordChangeHandler}
-          className="flex flex-col items-center"
+          className="flex flex-col items-start"
         >
           <div className=" w-[100%] 800px:w-[50%] mt-5">
             <label className="block pb-2">Enter your old password</label>
@@ -551,7 +563,7 @@ const ChangePassword = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
             <input
-              className={`w-[95%] h-[40px] border border-[#3a24db] text-center text-[#3a24db] rounded-[3px] mt-8 cursor-pointer`}
+              className={`w-[95%] h-[40px] border bg-primary_color text-text_color max-w-[150px] text-center  rounded-[3px] mt-8 cursor-pointer`}
               required
               value="Update"
               type="submit"
