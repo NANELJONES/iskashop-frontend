@@ -8,7 +8,7 @@ const FAQPage = () => {
     <div>
       <Header activeHeading={5} />
       <Faq />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

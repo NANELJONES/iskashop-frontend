@@ -17,7 +17,7 @@ const CheckoutPage = () => {
         <br />
        
     </div>
-    <Footer />
+    {/* <Footer /> */}
     </>
   )
 }

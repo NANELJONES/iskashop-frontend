@@ -32,7 +32,7 @@ const BestSellingPage = () => {
           {data && data.map((i, index) => <ProductCard data={i} key={index} />)}
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
     )
    }

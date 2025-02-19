@@ -11,7 +11,7 @@ const OrderDetailsPage = () => {
         <div className='flex mt-[3em] max-w-[1300px] mx-auto'>
           <UserOrderDetails />
         </div>
-        <Footer />
+        {/* <Footer /> */}
     </div>
   )
 }
