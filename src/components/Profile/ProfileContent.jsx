@@ -102,7 +102,7 @@ const ProfileContent = ({ active, setActive, isLoading, setIsLoading }) => {
       </div>
       <br/>
       <br/>
-      {active === 1 && (
+      {active === 2 && (
         <>
         <h1>Personal <br/>Information</h1>
           <div className="flex justify-center w-full">
@@ -199,7 +199,7 @@ const ProfileContent = ({ active, setActive, isLoading, setIsLoading }) => {
       )}
 
       {/* order */}
-      {active === 2 && (
+      {active === 1 && (
         <div>
           <AllOrders />
         </div>
@@ -264,9 +264,11 @@ const AllOrders = () => {
       </div> */}
 
       {/* Table Body */}
+      
       {orders &&
         orders.map((item, index) => (
-          <div key={item._id} className="border-b   flex flex-col gap-4 py-3">
+          <Link to={`/user/order/${item._id}`}> 
+          <div key={item._id} className="   flex flex-col gap-4 py-3">
             <div className="flex gap-10  border-b-2 border-b-primary_color pb-4">
               <p><strong> Order Date:</strong> <br/> {moment(item.createdAt).format("D MMMM YYYY")}</p>
               <p><strong> Order ID:</strong> <br/> {item._id}</p>
@@ -317,6 +319,7 @@ const AllOrders = () => {
               </div>
             </div>
           </div>
+          </Link>
         ))}
     </div>
   );

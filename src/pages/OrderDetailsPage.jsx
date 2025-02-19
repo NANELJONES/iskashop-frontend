@@ -9,8 +9,7 @@ const OrderDetailsPage = () => {
     <div>
         <Header />
         <div className='flex mt-[3em] max-w-[1300px] mx-auto'>
-          {/* <div className='w-1/5'><ProfileSidebar /></div> */}
-          <div className=''><UserOrderDetails /></div>
+          <UserOrderDetails />
         </div>
         <Footer />
     </div>

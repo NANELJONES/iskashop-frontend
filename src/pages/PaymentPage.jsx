@@ -6,16 +6,20 @@ import Payment from "../components/Payment/Payment";
 
 const PaymentPage = () => {
   return (
-    <div className='w-full min-h-screen bg-[#f6f9fc]'>
-       <Header />
+  <>
+     <Header />
+    <div className='container w-full min-h-screen  p-4'>
+    
        <br />
        <br />
        <CheckoutSteps active={2} />
        <Payment />
        <br />
        <br />
-       <Footer />
+     
     </div>
+    <Footer />
+  </>
   )
 }
 

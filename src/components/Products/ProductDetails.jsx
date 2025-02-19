@@ -123,7 +123,7 @@ const ProductDetails = ({ data }) => {
                 <img
                   src={`${data && data.images[select]?.url}`}
                   alt=""
-                  className="w-[80%] h-[250px]  md:h-[400px] object-cover"
+                  className="w-[80%] h-[250px]  md:h-[400px] object-contain"
                 />
                 <div className="w-full flex">
                   {data &&
@@ -199,14 +199,22 @@ const ProductDetails = ({ data }) => {
                     )}
                   </div>
                 </div>
+
+                {/* Add to Cart */}
                 <div
-                  className={`${styles.button} !mt-6 !rounded !h-11 flex items-center`}
+                  className={`${styles.button} !mt-6 !rounded bg-primary_color !h-11 flex items-center`}
                   onClick={() => addToCartHandler(data._id)}
                 >
-                  <span className="text-white flex items-center">
+                  <span className="text-white flex items-center text-text_color">
                     Add to cart <AiOutlineShoppingCart className="ml-1" />
                   </span>
                 </div>
+
+
+
+
+
+                {/* Shop information */}
                 <div className="flex items-center pt-8">
                   <Link to={`/shop/preview/${data?.shop._id}`}>
                     <img

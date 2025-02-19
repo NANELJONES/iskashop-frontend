@@ -64,7 +64,7 @@ const UserOrderDetails = () => {
   };
 
   return (
-    <div className={`py-4  w-full min-h-screen p-[1em] ${styles.section}`}>
+    <div className={`py-4  w-full min-h-screen p-[1em]   `}>
             <div className="w-full flex items-center bg-primary_color h-[30em] max-h-[200px]">
         <div className="ml-[2em]">
         <p className="text-text_color">Welcome</p>
@@ -237,15 +237,15 @@ const UserOrderDetails = () => {
       <br />
       <br />
       {/* Full Delivery Details */}
-      <div className="w-full 800px:flex flex-col items-start">
+      <div className="w-full">
       <h2 className="pt-3 font-[600]">Delivery Details:</h2>
       <div className="p-[2em] border rounded-md shadow-md border-primary_color ">
         {/* User Delivery Details */}
       <div className="w-full grid grid-cols-2 gap-4 lg:grid-cols-3 ">
           {/* Personal Info */}
           <p><strong>Name: </strong> <br/> {data?.user?.name}</p>
-          <p><strong>Email: </strong>  <br/> {data?.user?.name}</p>
-          <p><strong>Phone: </strong>  <br/> {data?.user?.name}</p>
+          <p><strong>Email: </strong>  <br/> {data?.user?.email}</p>
+          <p><strong>Phone: </strong>  <br/> {data?.user?.phoneNumber}</p>
           {/* Address */}
           <p className="pt-3 ">
             <strong>Address: </strong> <br/>

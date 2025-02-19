@@ -21,15 +21,15 @@ const ProfileSidebar = ({ active, setActive, isLoading, setIsLoading }) => {
 
   const menuItems = [
     
-    { id: 2, name: "Orders", icon: HiOutlineShoppingBag },
-    { id: 1, name: "Profile", icon: RxPerson },
+    { id: 1, name: "Orders", icon: HiOutlineShoppingBag },
+    { id: 2, name: "Profile", icon: RxPerson },
    
     // { id: 3, name: "Refunds", icon: HiOutlineReceiptRefund },
     // { id: 4, name: "Inbox", icon: AiOutlineMessage, onClick: () => navigate("/inbox") },
     // { id: 5, name: "Payment", icon: MdOutlineTrackChanges },
-    { id: 6, name: "Change Password", icon: RiLockPasswordLine },
-    { id: 7, name: "Address", icon: TbAddressBook },
-    { id: 8, name: "Wishlist", icon: AiOutlineHeart },
+    { id: 6, name: "Security", icon: RiLockPasswordLine },
+    { id: 7, name: "Addresses", icon: TbAddressBook },
+    { id: 8, name: "Saved Items", icon: AiOutlineHeart },
   ];
 
   const logoutHandler = () => {

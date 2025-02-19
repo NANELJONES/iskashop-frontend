@@ -6,16 +6,19 @@ import Footer from '../components/Layout/Footer';
 
 const CheckoutPage = () => {
   return (
-    <div>
+ <>
         <Header />
         <br />
         <br />
+        <div className='container p-4'>
         <CheckoutSteps active={1} />
         <Checkout />
         <br />
         <br />
-        <Footer />
+       
     </div>
+    <Footer />
+    </>
   )
 }
 

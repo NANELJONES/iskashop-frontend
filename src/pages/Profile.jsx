@@ -3,11 +3,12 @@ import ProfileSidebar from '../components/Profile/ProfileSidebar';
 import ProfileContent from '../components/Profile/ProfileContent';
 
 const Profile = () => {
-  const [active, setActive] = useState(1); // Default to 1 for Profile tab
+  const [active, setActive] = useState(2); // Default to 2 for Orders tab
   const [isLoading, setIsLoading] = useState(true);
 
   return (
     <>
+    <h3 className='absolute top-0 left-0'>{active}</h3>
       {isLoading && (
         <div className="fixed inset-0g-primary_color flex items-center justify-center z-50">
           <div className="bg-white p-4 rounded-lg shadow-lg">

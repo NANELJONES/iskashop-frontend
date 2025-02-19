@@ -62,13 +62,13 @@ const ProductCard = ({ data,isEvent }) => {
 
   return (
     <>
-      <div className="w-full w-[21em] rounded-lg shadow-md p-3  relative cursor-pointer">
+      <div className="w-full w-[22em] rounded-lg shadow-md p-3  relative cursor-pointer">
         {/* <div className="flex justify-end"></div> */}
         <Link to={`${isEvent === true ? `/product/${data._id}?isEvent=true` : `/product/${data._id}`}`}>
           <img
             src={`${data.images && data.images[0]?.url}`}
             alt=""
-            className="w-full   object-contain"
+            className="h-[200px] w-[200px] mx-auto   object-contain"
           />
         </Link>
        
@@ -88,7 +88,7 @@ const ProductCard = ({ data,isEvent }) => {
                 {data.originalPrice === 0
                   ? data.originalPrice
                   : data.discountPrice}
-                $
+                Gh
               </h5>
               <p className={`line-through `}>
                 {data.originalPrice ? data.originalPrice + " $" : null}
