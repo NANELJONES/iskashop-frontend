@@ -118,11 +118,12 @@ const ProductDetails = ({ data }) => {
         <div className={`${styles.section} w-[90%] 800px:w-[80%]`}>
           <div className="w-full py-5">
             <div className="block w-full 800px:flex">
+              {/* TThis is the product Page */}
               <div className="w-full 800px:w-[50%]">
                 <img
                   src={`${data && data.images[select]?.url}`}
                   alt=""
-                  className="w-[80%]"
+                  className="w-[80%] h-[250px]  md:h-[400px] object-cover"
                 />
                 <div className="w-full flex">
                   {data &&
@@ -130,12 +131,12 @@ const ProductDetails = ({ data }) => {
                       <div
                         className={`${
                           select === 0 ? "border" : "null"
-                        } cursor-pointer`}
+                        } cursor-pointer w-[100px] mt-[2em] ml-[1em] h-[100px] `}
                       >
                         <img
                           src={`${i?.url}`}
                           alt=""
-                          className="h-[200px] overflow-hidden mr-3 mt-3"
+                          className="w-full h-full object-cover overflow-hidden mr-3 rounded-md"
                           onClick={() => setSelect(index)}
                         />
                       </div>
@@ -147,15 +148,16 @@ const ProductDetails = ({ data }) => {
                   ></div>
                 </div>
               </div>
+              {/* This is the product details */}
               <div className="w-full 800px:w-[50%] pt-5">
-                <h1 className={`${styles.productTitle}`}>{data.name}</h1>
+                <h1 className={``}>{data.name}</h1>
                 <p>{data.description}</p>
-                <div className="flex pt-3">
+                <div className="flex pt-3 items-center">
                   <h4 className={`${styles.productDiscountPrice}`}>
-                    {data.discountPrice}$
+                    Gh {data.discountPrice}
                   </h4>
                   <h3 className={`${styles.price}`}>
-                    {data.originalPrice ? data.originalPrice + "$" : null}
+                    {data.originalPrice ? data.originalPrice + "Gh" : null}
                   </h3>
                 </div>
 
@@ -223,14 +225,14 @@ const ProductDetails = ({ data }) => {
                       ({averageRating}/5) Ratings
                     </h5>
                   </div>
-                  <div
+                  {/* <div
                     className={`${styles.button} bg-[#6443d1] mt-4 !rounded !h-11`}
                     onClick={handleMessageSubmit}
                   >
                     <span className="text-white flex items-center">
                       Send Message <AiOutlineMessage className="ml-1" />
                     </span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

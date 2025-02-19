@@ -285,7 +285,7 @@ const AllOrders = () => {
                       alt=""
                       className="w-[50px] h-[50px] rounded-full object-cover border-2 border-green-500"
                     />
-                    <span className="text-sm">{each_item.name}</span>
+                    <p className="text-sm">{each_item.name}</p>
 
                     <p>{each_item.qty}</p>
                   </div>
@@ -293,9 +293,9 @@ const AllOrders = () => {
               </div>
 
 
-              <div className="w-2/12">{item.cart.length}</div>
+              <p className="w-2/12">{item.cart.length}</p>
 
-              <div className="w-2/12 font-medium">US$ {item.totalPrice}</div>
+              <p className="w-2/12 font-medium">US$ {item.totalPrice}</p>
 
               <div className="w-1/12">
                 <Link to={`/user/order/${item._id}`}>
@@ -307,13 +307,13 @@ const AllOrders = () => {
 
               
               <div className="w-2/12 font-semibold">
-                <span
+                <p
                   className={`${
                     item.status === "Delivered" ? "text-green-600" : "text-red-600"
                   }`}
                 >
                   {item.status}
-                </span>
+                </p>
               </div>
             </div>
           </div>
