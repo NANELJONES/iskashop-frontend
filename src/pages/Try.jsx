@@ -21,8 +21,11 @@ axios.post(`${server}/user/create-user`, {
   
 }
 
+console.log(server)
+
   return (
    <>
+  
     <div  className='text-blue text-[100px]'>
 <FullDeliveries></FullDeliveries>
     </div>
