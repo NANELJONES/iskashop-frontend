@@ -8,6 +8,8 @@ import { HiOutlineUserGroup } from "react-icons/hi";
 import { BsHandbag } from "react-icons/bs";
 import { MdOutlineLocalOffer } from "react-icons/md";
 import { AiOutlineSetting } from "react-icons/ai";
+import { BiCategoryAlt } from "react-icons/bi";
+import { CiDeliveryTruck } from "react-icons/ci";
 
 const AdminSideBar = ({ active }) => {
   return (
@@ -40,7 +42,7 @@ const AdminSideBar = ({ active }) => {
               active === 2 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
-            All Orders
+           Orders
           </h5>
         </Link>
       </div>
@@ -56,7 +58,7 @@ const AdminSideBar = ({ active }) => {
               active === 3 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
-            All Sellers
+            Vendors
           </h5>
         </Link>
       </div>
@@ -72,7 +74,7 @@ const AdminSideBar = ({ active }) => {
               active === 4 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
-            All Users
+            Buyers
           </h5>
         </Link>
       </div>
@@ -93,9 +95,11 @@ const AdminSideBar = ({ active }) => {
         </Link>
       </div>
 
-      <div className="w-full flex items-center p-4">
-        <Link to="/admin-events" className="w-full flex items-center">
-          <MdOutlineLocalOffer
+
+{/* categories */}
+     <div className="w-full flex items-center p-4">
+        <Link to="/admin-categories" className="w-full flex items-center">
+          <BiCategoryAlt
             size={30}
             color={`${active === 6 ? "crimson" : "#555"}`}
           />
@@ -104,12 +108,32 @@ const AdminSideBar = ({ active }) => {
               active === 6 ? "text-[crimson]" : "text-[#555]"
             }`}
           >
-            All Events
+           Categories
+          </h5>
+        </Link>
+      </div>
+
+      {/* deliveries  */}
+
+
+      <div className="w-full flex items-center p-4">
+        <Link to="/admin-deliveries" className="w-full flex items-center">
+          <CiDeliveryTruck
+            size={30}
+            color={`${active === 7 ? "crimson" : "#555"}`}
+          />
+          <h5
+            className={`hidden 800px:block pl-2 text-[18px] font-[400] ${
+              active === 7 ? "text-[crimson]" : "text-[#555]"
+            }`}
+          >
+           Deliveries
           </h5>
         </Link>
       </div>
 
 
+  {/*
 
       <div className="w-full flex items-center p-4">
         <Link
@@ -128,7 +152,7 @@ const AdminSideBar = ({ active }) => {
             Withdraw Request
           </h5>
         </Link>
-      </div>
+      </div> */}
 
       <div className="w-full flex items-center p-4">
         <Link

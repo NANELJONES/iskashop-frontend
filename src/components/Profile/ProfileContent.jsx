@@ -146,7 +146,7 @@ const ProfileContent = ({ active, setActive, isLoading, setIsLoading }) => {
                 <div className=" w-[100%] 800px:w-[50%] ">
                   <label className="block pb-2">Email Address</label>
                   <input
-                    type="text"
+                    type="email"
                     className={`${styles.input}  !w-[95%] mb-1 800px:mb-0`}
                     required
                     value={email}
@@ -159,7 +159,7 @@ const ProfileContent = ({ active, setActive, isLoading, setIsLoading }) => {
                 <div className=" w-[100%] 800px:w-[50%]">
                   <label className="block pb-2">Phone Number</label>
                   <input
-                    type="number"
+                    type="text"
                     className={`${styles.input} !w-[95%] mb-4 800px:mb-0`}
                     required
                     value={phoneNumber}
@@ -691,8 +691,8 @@ const Address = () => {
                         State.getStatesOfCountry(country).map((item) => (
                           <option
                             className="block pb-2"
-                            key={item.isoCode}
-                            value={item.isoCode}
+                            key={item}
+                            value={item}
                           >
                             {item.name}
                           </option>

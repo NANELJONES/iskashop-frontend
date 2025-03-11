@@ -1,6 +1,8 @@
 import React from 'react'
 import { server } from '../server'
 import axios from 'axios'
+import FullDeliveries from '../components/Admin/FullDeliveries'
+
 
 const Try = () => {
   
@@ -22,9 +24,9 @@ axios.post(`${server}/user/create-user`, {
   return (
    <>
     <div  className='text-blue text-[100px]'>
-      I am just seeing if it works 
+<FullDeliveries></FullDeliveries>
     </div>
-    <button className='bg-primary_color text-white p-2 rounded-md' onClick={()=> {sendRequest()}}> Send Email </button>
+    
    </>
   )
 }

@@ -16,6 +16,11 @@ body {
 }
 input,select{
   outline: none;
+  font-size: 1em;
+}
+
+.distance_inputs input{
+font-size: 0.4em;
 }
 .batch_heart{
   background: tomato;
@@ -36,6 +41,8 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+
 
 .container{
   @apply max-w-[1400px] mx-auto;
@@ -92,6 +99,15 @@ input{
   
   h6 ,label{
     @apply text-primary_color text-lg  leading-[1.4];
+  }
+
+  button {
+    @apply text-sm p-2
+  }
+
+
+  .primary_button{
+    @apply bg-primary_color text-text_color 
   }
   
   .rich-text h1,
