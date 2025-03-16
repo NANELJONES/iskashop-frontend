@@ -49,6 +49,7 @@ const Login = () => {
       .then((res) => {
         toast.success("Login Success!");
         setCookie("token", res.data.token);
+        localStorage.setItem('token', res.data.token)
         console.log("this is the token : ", res.data.token);
         console.log(res)
         console.log("this is the  is authenticated : ", isAuthenticated);

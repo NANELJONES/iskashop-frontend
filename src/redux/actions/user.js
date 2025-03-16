@@ -12,7 +12,8 @@ export const loadUser = () => async (dispatch) => {
       credentials: 'include',
       headers: {
         'Access-Control-Allow-Origin': 'https://iskashop-backend.vercel.app/', 
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'token': localStorage.getItem('token')
     }
     });
     console.log("this is the data : ", data);
@@ -38,6 +39,9 @@ export const loadSeller = () => async (dispatch) => {
     });
     const { data } = await axios.get(`${server}/shop/getSeller`, {
       withCredentials: true,
+      headers: {
+        token: localStorage.getItem('token'),
+      }
     });
     dispatch({
       type: "LoadSellerSuccess",
