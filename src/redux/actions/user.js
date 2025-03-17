@@ -110,7 +110,12 @@ export const updatUserAddress =
           zipCode,
           addressType,
         },
-        { withCredentials: true }
+        {
+          withCredentials: true,
+          headers: {
+            'token': localStorage.getItem('token')
+          }
+        }
       );
 
       dispatch({
@@ -137,7 +142,12 @@ export const deleteUserAddress = (id) => async (dispatch) => {
 
     const { data } = await axios.delete(
       `${server}/user/delete-user-address/${id}`,
-      { withCredentials: true }
+        {
+        withCredentials: true,
+        headers: {
+          'token': localStorage.getItem('token')
+        }
+      }
     );
 
     dispatch({
@@ -164,6 +174,9 @@ export const getAllUsers = () => async (dispatch) => {
 
     const { data } = await axios.get(`${server}/user/admin-all-users`, {
       withCredentials: true,
+      headers:{
+        'token': localStorage.getItem('token')
+       }
     });
 
     dispatch({

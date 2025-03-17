@@ -12,7 +12,9 @@ const DashboardHeader = () => {
     <div className="w-full bg-primary_color shadow p-[3em]  flex flex-col items-start ">
     <h5 className='text-text_color'>Welcome</h5>
     <h2 className='text-text_color'>{`${seller.name} (${seller.role})`}</h2>
-    
+    { seller.adminData.shopApproval === "Pending" && <h5 className="text-text_color"> Account Status: {seller.adminData.shopApproval} Approval from IskaShop</h5>}
+    { seller.adminData.shopApproval === "Approved" && <h5 className="text-text_color"> Account Status: {seller.adminData.shopApproval} Approved by IskaShop</h5>}
+    { seller.adminData.shopApproval === "Rejected" && <h5 className="text-text_color"> Account Status: {seller.adminData.shopApproval} Rejected by IskaShop</h5>}
 
    </div>
   );

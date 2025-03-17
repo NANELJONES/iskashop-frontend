@@ -65,32 +65,40 @@ const ProfileContent = ({ active, setActive, isLoading, setIsLoading }) => {
 
   const handleImage = async (e) => {
     const reader = new FileReader();
-
-    reader.onload = () => {
+  
+    reader.onload = async () => {
       if (reader.readyState === 2) {
         setAvatar(reader.result);
-        axios
-          .put(
-            `${server}/user/update-avatar`,
-            { avatar: reader.result ,
-              userId: user._id,
-            },
+  
+        try {
+          const token = localStorage.getItem('token'); // Retrieve token
+  
+          const response = await axios.put(
+            `${server}/user/update-avatar`,  // Correct URL format
+            { 
+              avatar: reader.result, 
+              userId: user._id 
+            }, // Request body
             {
-              withCredentials: true,
+              headers: {
+                'Content-Type': 'application/json',
+                'token': token, // Pass token correctly
+              },
+              withCredentials: true, // Include credentials if needed
             }
-          )
-          .then((response) => {
-            dispatch(loadUser());
-            toast.success("avatar updated successfully!");
-          })
-          .catch((error) => {
-            toast.error(error);
-          });
+          );
+  
+          dispatch(loadUser());
+          toast.success("Avatar updated successfully!");
+        } catch (error) {
+          toast.error(error.response?.data?.message || "Something went wrong");
+        }
       }
     };
-
+  
     reader.readAsDataURL(e.target.files[0]);
   };
+  
   return (
     <div className="w-full ">
       {/* profile */}
@@ -512,7 +520,11 @@ const ChangePassword = () => {
     await axios
       .put(
         `${server}/user/update-user-password`,
+        {headers: {
+          'token': localStorage.getItem('token')
+        }},
         { oldPassword, newPassword, confirmPassword },
+
         { withCredentials: true }
       )
       .then((res) => {

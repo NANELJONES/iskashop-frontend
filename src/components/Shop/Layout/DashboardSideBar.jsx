@@ -8,11 +8,27 @@ import { CiMoneyBill, CiSettings } from "react-icons/ci";
 import { Link } from "react-router-dom";
 import { BiMessageSquareDetail } from "react-icons/bi";
 import { HiOutlineReceiptRefund } from "react-icons/hi";
+import { AiOutlineLogin } from "react-icons/ai";
 import { FaPaperPlane } from "react-icons/fa";
+import axios from "axios";
+import { server } from "../../../server";
 
 const DashboardSideBar = ({ active }) => {
+  const logoutHandler = async () => {
+    axios.get(`${server}/shop/logout`,{
+      withCredentials: true,
+      headers: {
+        'Access-Control-Allow-Origin': 'https://iskashop-backend.vercel.app/', 
+        'Content-Type': 'application/json',
+        'token': localStorage.getItem('token')
+    }
+    });
+
+    localStorage.removeItem('token');
+    window.location.reload();
+  };
   return (
-    <div className="w-full h-[90vh] bg-white flex flex-col gap-6 no_scroll  shadow-sm overflow-y-scroll  z-10">
+    <div className="w-full h-auto bg-white flex flex-col gap-2 no_scroll  shadow-sm overflow-y-scroll sticky top-0  z-10">
       {/* single item */}
       <div className="hidden md:block bg-primary_color p-6">
         <p className="text-text_color text-[1em]">Vendor</p>
@@ -192,10 +208,28 @@ const DashboardSideBar = ({ active }) => {
               active === 11 ? "text-text_color" : "text-primary_color"
             }`}
           >
-            Shop Settings
+            Shop Profile
           </h5>
         </Link>
       </div>
+
+      <div className={`w-full flex items-center p-4`}>
+        <div 
+          className="w-full flex items-center cursor-pointer"
+          onClick={logoutHandler}
+        >
+         <AiOutlineLogin
+            size={20}
+            color={active === 9 ? "rgb(255,255,255)" : "#17637C"}
+          />
+          <h5
+            className={`hidden 800px:block pl-2 text-[16px] font-[400] text-primary_color`}
+          >
+            Logout
+          </h5>
+        </div>
+      </div>
+
     </div>
   );
 };

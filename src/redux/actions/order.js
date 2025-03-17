@@ -56,6 +56,9 @@ export const getAllOrdersOfAdmin = () => async (dispatch) => {
 
     const { data } = await axios.get(`${server}/order/admin-all-orders`, {
       withCredentials: true,
+      headers:{
+        'token': localStorage.getItem('token')
+       }
     });
 
     dispatch({

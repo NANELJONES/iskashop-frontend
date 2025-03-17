@@ -17,6 +17,9 @@ const AllSellers = () => {
   const [open, setOpen] = useState(false);
   const [userId, setUserId] = useState("");
   const [approvalStatus, setApprovalStatus] = useState({});
+  const [showApprovalModal, setShowApprovalModal] = useState(false);
+  const [selectedSeller, setSelectedSeller] = useState(null);
+  const [selectedStatus, setSelectedStatus] = useState("");
 
   useEffect(() => {
     dispatch(getAllSellers());
@@ -24,7 +27,12 @@ const AllSellers = () => {
 
   const handleDelete = async (id) => {
     await axios
-      .delete(`${server}/shop/delete-seller/${id}`, { withCredentials: true })
+      .delete(`${server}/shop/delete-seller/${id}`, { withCredentials: true ,
+        headers: {
+       
+          token: localStorage.getItem('token'),
+        },
+      })
       .then((res) => {
         toast.success(res.data.message);
       });
@@ -33,8 +41,41 @@ const AllSellers = () => {
   };
 
   const handleApprovalChange = (id, status) => {
-    setApprovalStatus((prev) => ({ ...prev, [id]: status }));
-    // Optionally, you can send the updated status to the backend here
+    setSelectedSeller(id);
+    setSelectedStatus(status);
+    setShowApprovalModal(true);
+  };
+
+  const updateShopApproval = async (shopId, approvalValue) => {
+    try {
+      const response = await axios.put(
+        `${server}/shop/update-shop-approval`,
+        { 
+          shopId,
+          approvalValue 
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            token: localStorage.getItem('token'),
+          },
+          withCredentials: true,
+        }
+      );
+  
+      if (response.data.success) {
+        toast.success("Shop approval status updated successfully!");
+        setApprovalStatus((prev) => ({ ...prev, [shopId]: approvalValue }));
+        dispatch(getAllSellers());
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Error updating shop approval status");
+    }
+  };
+
+  const handleApprovalConfirm = () => {
+    updateShopApproval(selectedSeller, selectedStatus);
+    setShowApprovalModal(false);
   };
 
   const columns = [
@@ -116,25 +157,55 @@ const AllSellers = () => {
             autoHeight
           />
         </div>
+        
+        {/* Delete Confirmation Modal */}
         {open && (
-          <div className="w-full fixed top-0 left-0 z-[999] bg-[#00000039] flex items-center justify-center h-screen">
-            <div className="w-[95%] 800px:w-[40%] min-h-[20vh] bg-white rounded shadow p-5">
+          <div className="fixed top-0 left-0 w-full h-screen bg-[#00000062] z-[999] flex items-center justify-center">
+            <div className="w-[95%] 800px:w-[40%] min-h-[20vh] bg-text_color rounded shadow p-5">
               <div className="w-full flex justify-end cursor-pointer">
                 <RxCross1 size={25} onClick={() => setOpen(false)} />
               </div>
-              <h3 className="text-[25px] text-center py-5 font-Poppins text-[#000000cb]">
-                Are you sure you wanna delete this user?
+              <h3 className="text-[25px] text-center py-5 font-Poppins">
+                Are you sure you want to delete this user?
               </h3>
               <div className="w-full flex items-center justify-center">
                 <div
-                  className={`${styles.button} text-white text-[18px] !h-[42px] mr-4`}
+                  className={`${styles.button} !rounded-none text-text_color bg-primary_red text-[18px] !h-[42px] mr-4`}
                   onClick={() => setOpen(false)}
                 >
                   Cancel
                 </div>
                 <div
-                  className={`${styles.button} text-white text-[18px] !h-[42px] ml-4`}
+                  className={`${styles.button} !rounded-none text-text_color bg-primary_color text-[18px] !h-[42px] ml-4`}
                   onClick={() => setOpen(false) || handleDelete(userId)}
+                >
+                  Confirm
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Approval Confirmation Modal */}
+        {showApprovalModal && (
+          <div className="fixed top-0 left-0 w-full h-screen bg-[#00000062] z-[999] flex items-center justify-center">
+            <div className="w-[95%] 800px:w-[40%] min-h-[20vh] bg-text_color rounded shadow p-5">
+              <div className="w-full flex justify-end cursor-pointer">
+                <RxCross1 size={25} onClick={() => setShowApprovalModal(false)} />
+              </div>
+              <h3 className="text-[25px] text-center py-5 font-Poppins ">
+                Are you sure you want to set this seller's status to "{selectedStatus}"?
+              </h3>
+              <div className="w-full flex items-center justify-center">
+                <div
+                  className={`${styles.button} !rounded-none text-text_color bg-primary_red text-[18px] !h-[42px] mr-4`}
+                  onClick={() => setShowApprovalModal(false)}
+                >
+                  Cancel
+                </div>
+                <div
+                  className={`${styles.button} !rounded-none text-text_color bg-primary_color text-[18px] !h-[42px] ml-4`}
+                  onClick={handleApprovalConfirm}
                 >
                   Confirm
                 </div>

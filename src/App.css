@@ -86,6 +86,10 @@ input{
   @apply flex gap-[2em] 
 }
 
+span{
+  @apply text-primary_color
+}
+
 
 
 
@@ -116,8 +120,16 @@ input{
     @apply text-primary_color text-xl  leading-[1.4];
   }
   
-  h6 ,label{
+  h6 {
     @apply text-primary_color text-lg  leading-[1.4];
+  }
+
+  label{
+    @apply text-primary_color text-sm
+  }
+
+  input{
+    @apply text-[0.8em];
   }
 
   button {
