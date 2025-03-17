@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllOrdersOfAdmin } from "../../redux/actions/order";
 import Loader from "../Layout/Loader";
 import { getAllSellers } from "../../redux/actions/sellers";
-
 const AdminDashboardMain = () => {
   const dispatch = useDispatch();
 
@@ -97,8 +96,8 @@ const AdminDashboardMain = () => {
         <div className="w-full p-4">
         <h3 className="text-[22px] font-Poppins pb-2">Overview</h3>
         <div className="w-full block 800px:flex items-center justify-between">
-          <div className="w-full mb-4 800px:w-[30%] min-h-[20vh] bg-white shadow rounded px-2 py-5">
-            <div className="flex items-center">
+          <div className="w-full card border border-primary_color mb-4 800px:w-[30%] min-h-[20vh] bg-white shadow rounded px-2 py-5">
+            <div className="flex items-center ">
               <AiOutlineMoneyCollect
                 size={30}
                 className="mr-2"
@@ -113,7 +112,7 @@ const AdminDashboardMain = () => {
             <h5 className="pt-2 pl-[36px] text-[22px] font-[500]">$ {adminBalance}</h5>
           </div>
   
-          <div className="w-full mb-4 800px:w-[30%] min-h-[20vh] bg-white shadow rounded px-2 py-5">
+          <div className="w-full mb-4 800px:w-[30%] card border border-primary_color min-h-[20vh] bg-white shadow rounded px-2 py-5">
             <div className="flex items-center">
               <MdBorderClear size={30} className="mr-2" fill="#00000085" />
               <h3
@@ -128,7 +127,7 @@ const AdminDashboardMain = () => {
             </Link>
           </div>
   
-          <div className="w-full mb-4 800px:w-[30%] min-h-[20vh] bg-white shadow rounded px-2 py-5">
+          <div className="w-full mb-4 800px:w-[30%] card border border-primary_color min-h-[20vh] bg-white shadow rounded px-2 py-5">
             <div className="flex items-center">
               <AiOutlineMoneyCollect
                 size={30}

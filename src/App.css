@@ -9,11 +9,17 @@
 *{
   scroll-behavior: smooth;
 }
+
+html{
+  font-size: 16px;
+}
 body {
   font-family: Poppins;
     background: #ffffff;
     scroll-behavior: smooth;
 }
+
+
 input,select{
   outline: none;
   font-size: 1em;
@@ -70,6 +76,19 @@ input[type=number] {
 input{
   @apply  border border-primary_color text-primary_color rounded-md 
 }
+
+
+.card{
+  @apply bg-[#ffffff] shadow-xl shadow-[rgba(51,38,174,0.2)];
+  
+}
+.admin_container_div{
+  @apply flex gap-[2em] 
+}
+
+
+
+
 
 @layer base {
 

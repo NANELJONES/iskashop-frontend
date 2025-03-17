@@ -16,6 +16,7 @@ const AllSellers = () => {
   const { sellers } = useSelector((state) => state.seller);
   const [open, setOpen] = useState(false);
   const [userId, setUserId] = useState("");
+  const [approvalStatus, setApprovalStatus] = useState({});
 
   useEffect(() => {
     dispatch(getAllSellers());
@@ -23,86 +24,76 @@ const AllSellers = () => {
 
   const handleDelete = async (id) => {
     await axios
-    .delete(`${server}/shop/delete-seller/${id}`, { withCredentials: true })
-    .then((res) => {
-      toast.success(res.data.message);
-    });
+      .delete(`${server}/shop/delete-seller/${id}`, { withCredentials: true })
+      .then((res) => {
+        toast.success(res.data.message);
+      });
 
-  dispatch(getAllSellers());
+    dispatch(getAllSellers());
+  };
+
+  const handleApprovalChange = (id, status) => {
+    setApprovalStatus((prev) => ({ ...prev, [id]: status }));
+    // Optionally, you can send the updated status to the backend here
   };
 
   const columns = [
     { field: "id", headerName: "Seller ID", minWidth: 150, flex: 0.7 },
-
+    { field: "name", headerName: "Name", minWidth: 130, flex: 0.7 },
+    { field: "email", headerName: "Email", type: "text", minWidth: 130, flex: 0.7 },
+    { field: "address", headerName: "Seller Address", type: "text", minWidth: 130, flex: 0.7 },
+    { field: "joinedAt", headerName: "Joined At", type: "text", minWidth: 130, flex: 0.8 },
     {
-      field: "name",
-      headerName: "name",
-      minWidth: 130,
-      flex: 0.7,
+      field: "preview",
+      flex: 1,
+      minWidth: 150,
+      headerName: "Preview Shop",
+      type: "number",
+      sortable: false,
+      renderCell: (params) => (
+        <Link to={`/shop/preview/${params.id}`}>
+          <Button>
+            <AiOutlineEye size={20} />
+          </Button>
+        </Link>
+      ),
     },
     {
-      field: "email",
-      headerName: "Email",
-      type: "text",
-      minWidth: 130,
-      flex: 0.7,
-    },
-    {
-      field: "address",
-      headerName: "Seller Address",
-      type: "text",
-      minWidth: 130,
-      flex: 0.7,
-    },
-
-    {
-      field: "joinedAt",
-      headerName: "joinedAt",
-      type: "text",
-      minWidth: 130,
-      flex: 0.8,
-    },
-    {
-        field: "  ",
-        flex: 1,
-        minWidth: 150,
-        headerName: "Preview Shop",
-        type: "number",
-        sortable: false,
-        renderCell: (params) => {
-          return (
-            <>
-            <Link to={`/shop/preview/${params.id}`}>
-            <Button>
-                <AiOutlineEye size={20} />
-              </Button>
-            </Link>
-            </>
-          );
-        },
-      },
-    {
-      field: " ",
+      field: "delete",
       flex: 1,
       minWidth: 150,
       headerName: "Delete Seller",
       type: "number",
       sortable: false,
-      renderCell: (params) => {
-        return (
-          <>
-            <Button onClick={() => setUserId(params.id) || setOpen(true)}>
-              <AiOutlineDelete size={20} />
-            </Button>
-          </>
-        );
-      },
+      renderCell: (params) => (
+        <Button onClick={() => setUserId(params.id) || setOpen(true)}>
+          <AiOutlineDelete size={20} />
+        </Button>
+      ),
+    },
+    {
+      field: "approvalStatus",
+      headerName: "Approval Status",
+      minWidth: 150,
+      flex: 1,
+      sortable: false,
+      renderCell: (params) => (
+        <select
+          value={approvalStatus[params.id] || "Pending"}
+          onChange={(e) => handleApprovalChange(params.id, e.target.value)}
+          className="border p-2 rounded"
+        >
+          <option value="Pending">Pending</option>
+          <option value="Denied">Denied</option>
+          <option value="Approved">Approved</option>
+        </select>
+      ),
     },
   ];
 
   const row = [];
   sellers &&
-  sellers.forEach((item) => {
+    sellers.forEach((item) => {
       row.push({
         id: item._id,
         name: item?.name,
@@ -139,13 +130,13 @@ const AllSellers = () => {
                   className={`${styles.button} text-white text-[18px] !h-[42px] mr-4`}
                   onClick={() => setOpen(false)}
                 >
-                  cancel
+                  Cancel
                 </div>
                 <div
                   className={`${styles.button} text-white text-[18px] !h-[42px] ml-4`}
-                  onClick={() =>  setOpen(false) || handleDelete(userId)}
+                  onClick={() => setOpen(false) || handleDelete(userId)}
                 >
-                  confirm
+                  Confirm
                 </div>
               </div>
             </div>

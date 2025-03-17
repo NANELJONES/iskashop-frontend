@@ -26,6 +26,7 @@ const ShopLogin = () => {
       )
       .then((res) => {
         toast.success("Login Success!");
+        localStorage.setItem('token', res.data.token)
         navigate("/dashboard");
         window.location.reload(true); 
       })

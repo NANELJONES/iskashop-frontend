@@ -18,6 +18,7 @@ import OrderDetailsPage from "../pages/OrderDetailsPage";
 import TrackOrderPage from "../pages/TrackOrderPage";
 import UserInbox from "../pages/UserInbox.jsx";
 import Try from  "../pages/Try.jsx"
+import AdminFinancials from "../pages/AdminFinancials.jsx";
 
 export { 
     LoginPage,
@@ -39,6 +40,6 @@ export {
     OrderDetailsPage,
     TrackOrderPage,
     UserInbox,
-    Try
-   
+    Try,
+    AdminFinancials
 };

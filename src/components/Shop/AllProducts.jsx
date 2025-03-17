@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { getAllProductsShop } from "../../redux/actions/product";
 import { deleteProduct } from "../../redux/actions/product";
 import Loader from "../Layout/Loader";
-
+import AccountReview from "./AccountReview";
 const AllProducts = () => {
   const { products, isLoading } = useSelector((state) => state.products);
   const { seller } = useSelector((state) => state.seller);
@@ -105,18 +105,25 @@ const AllProducts = () => {
 
   return (
     <>
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <div className="w-full mx-8 pt-1 mt-10 bg-white">
-          <DataGrid
-            rows={row}
-            columns={columns}
-            pageSize={10}
-            disableSelectionOnClick
-            autoHeight
-          />
-        </div>
+      {seller.adminData.shopApproval === "Pending" && (
+        <AccountReview message="All Products" img_path="/account_review.svg" />
+      )}
+      {seller.adminData.shopApproval === "Approved" && (
+        <>
+          {isLoading ? (
+            <Loader />
+          ) : (
+            <div className="w-full mx-8 pt-1 mt-10 bg-white">
+              <DataGrid
+                rows={row}
+                columns={columns}
+                pageSize={10}
+                disableSelectionOnClick
+                autoHeight
+              />
+            </div>
+          )}
+        </>
       )}
     </>
   );

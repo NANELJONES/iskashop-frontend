@@ -7,6 +7,7 @@ import AdminDashboardEvents from "../pages/AdminDashboardEvents";
 import AdminDashboardWithdraw from "../pages/AdminDashboardWithdraw";
 import AdminCategories from "../pages/AdminCategories";
 import AdminDeliveries from "../pages/AdminDeliveries";
+import { AdminFinancials } from "./Routes";
 import Try from "../pages/Try"
 
 
@@ -19,6 +20,7 @@ export {
   AdminDashboardEvents,
   AdminCategories,
   AdminDeliveries,
+  AdminFinancials,
   Try,
   AdminDashboardWithdraw
 };

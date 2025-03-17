@@ -8,10 +8,11 @@ import { CiMoneyBill, CiSettings } from "react-icons/ci";
 import { Link } from "react-router-dom";
 import { BiMessageSquareDetail } from "react-icons/bi";
 import { HiOutlineReceiptRefund } from "react-icons/hi";
+import { FaPaperPlane } from "react-icons/fa";
 
 const DashboardSideBar = ({ active }) => {
   return (
-    <div className="w-full h-[90vh] bg-white flex flex-col gap-6 no_scroll  shadow-sm overflow-y-scroll sticky top-0 left-0 z-10">
+    <div className="w-full h-[90vh] bg-white flex flex-col gap-6 no_scroll  shadow-sm overflow-y-scroll  z-10">
       {/* single item */}
       <div className="hidden md:block bg-primary_color p-6">
         <p className="text-text_color text-[1em]">Vendor</p>
@@ -133,8 +134,8 @@ const DashboardSideBar = ({ active }) => {
       </div> */}
 
       <div  className={`w-full flex items-center p-4 ${active === 8 ? " bg-primary_color" : "none"}`}>
-        <Link to="/dashboard-messages" className="w-full flex items-center">
-          <BiMessageSquareDetail
+        <Link to="/shop-remittance" className="w-full flex items-center">
+          <CiMoneyBill
             size={25}
             color={`${active === 8 ? "rgb(255,255,255)" : "#17637C"}`}
           />
@@ -143,7 +144,7 @@ const DashboardSideBar = ({ active }) => {
               active === 8 ? "text-text_color" : "text-primary_color"
             }`}
           >
-            Shop Inbox
+            Remittance
           </h5>
         </Link>
       </div>
@@ -165,8 +166,8 @@ const DashboardSideBar = ({ active }) => {
       </div>
 
       <div  className={`w-full flex items-center p-4 ${active === 10 ? " bg-primary_color" : "none"}`}>
-        <Link to="/dashboard-refunds" className="w-full flex items-center">
-          <HiOutlineReceiptRefund
+        <Link to="/shop-promotions" className="w-full flex items-center">
+          <FaPaperPlane
             size={25}
             color={`${active === 10 ? "rgb(255,255,255)" : "#17637C"}`}
           />
@@ -175,13 +176,13 @@ const DashboardSideBar = ({ active }) => {
               active === 10 ? "text-text_color" : "text-primary_color"
             }`}
           >
-            Refunds
+            Promotions
           </h5>
         </Link>
       </div>
 
       <div className={`w-full flex items-center p-4 ${active === 11 ? " bg-primary_color" : "none"}`}>
-        <Link to="/settings" className="w-full flex items-center">
+        <Link to="/shop-settings" className="w-full flex items-center">
           <CiSettings
             size={25}
             color={`${active === 11 ? "rgb(255,255,255)" : "#17637C"}`}
@@ -191,7 +192,7 @@ const DashboardSideBar = ({ active }) => {
               active === 11 ? "text-text_color" : "text-primary_color"
             }`}
           >
-            Settings
+            Shop Settings
           </h5>
         </Link>
       </div>

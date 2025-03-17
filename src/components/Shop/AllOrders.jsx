@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Loader from "../Layout/Loader";
 import { getAllOrdersOfShop } from "../../redux/actions/order";
 import { AiOutlineArrowRight } from "react-icons/ai";
+import AccountReview from "./AccountReview";
 
 const AllOrders = () => {
   const { orders, isLoading } = useSelector((state) => state.order);
@@ -82,18 +83,25 @@ const AllOrders = () => {
 
   return (
     <>
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <div className="w-full mx-8 pt-1 mt-10 bg-white">
-          <DataGrid
-            rows={row}
-            columns={columns}
-            pageSize={10}
-            disableSelectionOnClick
-            autoHeight
-          />
-        </div>
+      {seller.adminData.shopApproval === "Pending" && (
+        <AccountReview message="All Orders" img_path="/account_review.svg" />
+      )}
+      {seller.adminData.shopApproval === "Approved" && (
+        <>
+          {isLoading ? (
+            <Loader />
+          ) : (
+            <div className="w-full mx-8 pt-1 mt-10 bg-white">
+              <DataGrid
+                rows={row}
+                columns={columns}
+                pageSize={10}
+                disableSelectionOnClick
+                autoHeight
+              />
+            </div>
+          )}
+        </>
       )}
     </>
   );

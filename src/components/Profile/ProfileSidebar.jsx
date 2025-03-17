@@ -33,6 +33,9 @@ const ProfileSidebar = ({ active, setActive, isLoading, setIsLoading }) => {
   ];
 
   const logoutHandler = () => {
+
+    localStorage.removeItem('token');
+  
     axios
       .get(`${server}/user/logout`, { withCredentials: true })
       .then((res) => {
@@ -43,6 +46,8 @@ const ProfileSidebar = ({ active, setActive, isLoading, setIsLoading }) => {
       .catch((error) => {
         console.log(error.response.data.message);
       });
+
+      window.location.reload(true);
   };
 
   return (

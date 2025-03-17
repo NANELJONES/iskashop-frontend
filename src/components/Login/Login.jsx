@@ -24,14 +24,14 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch()
   const { isAuthenticated } = useSelector((state) => state.user);
-  useEffect(() => {
-    if (isAuthenticated === true) {
-      toast.success("Successfully authenticated!");
+  // useEffect(() => {
+  //   if (isAuthenticated === true) {
+  //     toast.success("Successfully authenticated!");
 
-    }else{
-      toast.error("Failed to authenticate!");
-    }
-  }, [isAuthenticated,]);
+  //   }else{
+  //     toast.error("Failed to authenticate!");
+  //   }
+  // }, [isAuthenticated,]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,12 +47,11 @@ const Login = () => {
         { withCredentials: true }
       )
       .then((res) => {
-        toast.success("Login Success!");
+       
         setCookie("token", res.data.token);
         localStorage.setItem('token', res.data.token)
-        console.log("this is the token : ", res.data.token);
-        console.log(res)
-        console.log("this is the  is authenticated : ", isAuthenticated);
+        toast.success("Login Success!");
+        loadUser()
         navigate("/profile");
         window.location.reload(true);
       })
@@ -76,6 +75,8 @@ const Login = () => {
           </div>
         </div>
       )}
+
+
 
       {/* <Header/> */}
       <div className="min-h-screen bg-gray-50 flex max-w-[1300px] mx-auto flex-col justify-center py-12 sm:px-6 lg:px-8">

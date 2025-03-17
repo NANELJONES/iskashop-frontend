@@ -37,6 +37,8 @@ import {
   ShopSettingsPage,
   ShopWithDrawMoneyPage,
   ShopInboxPage,
+  ShopRemittance,
+  ShopPromotions
 } from "./routes/ShopRoutes";
 import {
   AdminDashboardPage,
@@ -47,7 +49,8 @@ import {
   AdminDashboardEvents,
   AdminDashboardWithdraw,
     AdminCategories,
-    AdminDeliveries
+    AdminDeliveries,
+    AdminFinancials
 } from "./routes/AdminRoutes";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -170,14 +173,35 @@ const App = () => {
             </SellerProtectedRoute>
           }
         />
+
         <Route
-          path="/settings"
+          path="/shop-remittance"
+          element={
+            <SellerProtectedRoute>
+              <ShopRemittance />
+            </SellerProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/shop-promotions"
+          element={
+            <SellerProtectedRoute>
+              <ShopPromotions />
+            </SellerProtectedRoute>
+          }
+        />
+        <Route
+          path="/shop-settings"
           element={
             <SellerProtectedRoute>
               <ShopSettingsPage />
             </SellerProtectedRoute>
           }
         />
+
+
+
         <Route
           path="/dashboard"
           element={
@@ -267,6 +291,15 @@ const App = () => {
             </SellerProtectedRoute>
           }
         />
+
+
+
+
+
+
+
+
+
         {/* Admin Routes */}
         <Route
           path="/admin/dashboard"
@@ -331,6 +364,9 @@ const App = () => {
             </ProtectedAdminRoute>
           }
         />
+
+
+
          <Route
           path="/admin-events"
           element={
@@ -339,11 +375,27 @@ const App = () => {
             </ProtectedAdminRoute>
           }
         />
+
+
+        
+
+
+
          <Route
           path="/admin-withdraw-request"
           element={
             <ProtectedAdminRoute>
               <AdminDashboardWithdraw />
+            </ProtectedAdminRoute>
+          }
+        />
+
+
+<Route
+          path="/admin-financials"
+          element={
+            <ProtectedAdminRoute>
+              <AdminFinancials />
             </ProtectedAdminRoute>
           }
         />

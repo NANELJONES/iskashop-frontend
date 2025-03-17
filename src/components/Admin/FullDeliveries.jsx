@@ -8,7 +8,7 @@ import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 import { Country,State , City} from 'country-state-city';
 import DeliveryCostVariation from './Deliveries/DeliveryCostVariation';
-import CourierWeightVariation from "./Deliveries/CourierWeightVariation"
+import WeightVariation from "./Deliveries/WeightVariation"
 
 
 const AllDeliveries = ()=>{
@@ -386,6 +386,7 @@ const AllCompanies = ({
 // this is the component that has All Company Names, the Cost Variation and the Weight Variation
 const DeliveryCompanies = () => {
   const [companies, setAllCompanies] = useState([]);
+  const [loading, setLoading] = useState(true); // Add a loading state
 
   const fetchAllCompanies = async () => {
     try {
@@ -394,14 +395,24 @@ const DeliveryCompanies = () => {
       if (allCompanies) {
         setAllCompanies(allCompanies.data.companies);
       }
+      setLoading(false)
     } catch (error) {
       console.log(error);
     }
   };
 
+
+
+  function getCompanyNames(data) {
+    return data.map(company => company.companyName);
+}
+
   useEffect(() => {
     fetchAllCompanies();
   }, []);
+
+
+  
 
   console.log("these are all the companies", companies )
 
@@ -475,7 +486,17 @@ const DeliveryCompanies = () => {
         setIsEditMode={setIsEditMode} // Pass setIsEditMode to AllCompanies
         companies={companies}
       />
+{
+ loading &&
+     <p>Loading...</p> // Show a loading indicator
+  }
 
+{companies.length > 0 && (
+  <WeightVariation
+    weightCompany={companies[0]?.companyName}
+    all_Companies={getCompanyNames(companies)}
+  />
+)}
       <DeliveryCostVariation deliveryCompanies={companies}></DeliveryCostVariation>
 
 
@@ -520,12 +541,7 @@ const FullDeliveries = () => {
       Component: <><DeliveryCompanies></DeliveryCompanies> 
        </>
     },
-    {
-      TabName :"Couriers and Weight",
-      TabValue: 3,
-      Component:<CourierWeightVariation></CourierWeightVariation>
-       
-    },
+  
 
   ]
 

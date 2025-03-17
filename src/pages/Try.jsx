@@ -2,6 +2,7 @@ import React from 'react'
 import { server } from '../server'
 import axios from 'axios'
 import FullDeliveries from '../components/Admin/FullDeliveries'
+import Taxes from '../components/Admin/Financials/Taxes'
 
 
 const Try = () => {
@@ -26,8 +27,8 @@ console.log(server)
   return (
    <>
   
-    <div  className='text-blue text-[100px]'>
-<FullDeliveries></FullDeliveries>
+    <div  className='text-blue '>
+<Taxes></Taxes>
     </div>
     
    </>

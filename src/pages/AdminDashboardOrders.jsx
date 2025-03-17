@@ -4,6 +4,7 @@ import AdminSideBar from "../components/Admin/Layout/AdminSideBar";
 import { DataGrid } from "@material-ui/data-grid";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllOrdersOfAdmin } from "../redux/actions/order";
+import LayoutContainer from "../components/Admin/Layout/LayoutContainer";
 
 const AdminDashboardOrders = () => {
   const dispatch = useDispatch();
@@ -67,7 +68,10 @@ const AdminDashboardOrders = () => {
     });
   return (
     <div>
-      <AdminHeader />
+      <LayoutContainer>
+
+
+  
       <div className="w-full flex">
         <div className="flex items-start justify-between w-full">
           <div className="w-[80px] 800px:w-[330px]">
@@ -75,7 +79,9 @@ const AdminDashboardOrders = () => {
           </div>
 
           <div className="w-full min-h-[45vh] pt-5 rounded flex justify-center">
-            <div className="w-[97%] flex justify-center">
+            <div className="w-[97%] ">
+            <AdminHeader />
+             
               <DataGrid
                 rows={row}
                 columns={columns}
@@ -83,10 +89,14 @@ const AdminDashboardOrders = () => {
                 disableSelectionOnClick
                 autoHeight
               />
+
+
             </div>
           </div>
         </div>
       </div>
+      </LayoutContainer>
+    
     </div>
   );
 };

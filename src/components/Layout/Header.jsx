@@ -100,12 +100,12 @@ const Header = ({ activeHeading }) => {
           </div>
 
           <div className={`${styles.button}`}>
-            {/* <Link to={`${isSeller ? "/dashboard" : "/shop-create"}`}>
+          <Link to={`${isSeller ? "/dashboard" : "/shop-create"}`}>
               <p className="text-[#fff] bg-primary_color p-2 py-4 rounded-md flex items-center">
                 {isSeller ? " Dashboard" : "Become Seller"}{" "}
                 <IoIosArrowForward className="ml-1" />
               </p>
-            </Link> */}
+            </Link> 
           </div>
         </div>
       </div>
