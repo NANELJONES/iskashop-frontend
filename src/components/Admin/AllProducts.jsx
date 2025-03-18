@@ -15,7 +15,21 @@ const AllProducts = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios.get(`${server}/product/admin-all-products`, {withCredentials: true}).then((res) => {
+    axios.get(`${server}/product/admin-all-products`,
+      
+      {withCredentials: true,
+        headers: {
+          'token': localStorage.getItem("token"),
+        },
+
+
+
+
+      },
+
+    
+      
+    ).then((res) => {
         setData(res.data.products);
     })
   }, []);
@@ -85,7 +99,9 @@ const AllProducts = () => {
 
   return (
     <>
-        <div className="w-full mx-8 pt-1 mt-10 bg-white">
+
+    <h2 className="font-bold">All Products</h2>
+        <div className="w-full  pt-1 mt-10 bg-white">
           <DataGrid
             rows={row}
             columns={columns}

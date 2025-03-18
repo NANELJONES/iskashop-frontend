@@ -72,14 +72,14 @@ const AdminDashboardOrders = () => {
 
 
   
-      <div className="w-full flex">
-        <div className="flex items-start justify-between w-full">
+     
+        <div className="admin_container_div w-full">
           <div className="w-[80px] 800px:w-[330px]">
             <AdminSideBar active={2} />
           </div>
 
-          <div className="w-full min-h-[45vh] pt-5 rounded flex justify-center">
-            <div className="w-[97%] ">
+          <div className="w-full min-h-[45vh] rounded flex justify-center">
+            <div className="w-full ">
             <AdminHeader />
              
               <DataGrid
@@ -94,7 +94,7 @@ const AdminDashboardOrders = () => {
             </div>
           </div>
         </div>
-      </div>
+     
       </LayoutContainer>
     
     </div>

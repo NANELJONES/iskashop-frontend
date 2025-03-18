@@ -86,9 +86,16 @@ const CreateProduct = () => {
       {seller.adminData.shopApproval === "Pending" && (
         <AccountReview message="Create Product" img_path="/account_review.svg" />
       )}
+
+{seller.adminData.shopApproval === "Rejected" && (
+       <h4 className="text-center text-red-500">Your Account is Rejected by IskaShop. Please contact support for more information.</h4>
+      )}
+
+
+
       {seller.adminData.shopApproval === "Approved" && (
-        <div className="w-[90%] 800px:w-[50%] bg-white  shadow h-[80vh] rounded-[4px] p-3 overflow-y-scroll">
-          <h5 className="text-[30px] font-Poppins text-center">Create Product</h5>
+        <div className="w-[90%]  bg-white   rounded-[4px] p-3 ">
+          <h2 className=" font-Poppins text-left">Add New Product</h2>
           {/* create product form */}
           <form onSubmit={handleSubmit}>
             <br />

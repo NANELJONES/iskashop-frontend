@@ -6,15 +6,18 @@ import AllProducts from "../components/Admin/AllProducts";
 const AdminDashboardProducts = () => {
   return (
     <div>
-    <AdminHeader />
-    <div className="w-full flex">
-      <div className="flex items-start justify-between w-full">
+
+
+      <div className="w-full admin_container_div">
         <div className="w-[80px] 800px:w-[330px]">
           <AdminSideBar active={5} />
         </div>
-        <AllProducts />
+     <div className='w-full'>
+     <AdminHeader />
+     <AllProducts />
+     </div>
       </div>
-    </div>
+  
   </div>
   )
 }

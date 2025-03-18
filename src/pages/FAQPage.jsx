@@ -36,7 +36,7 @@ const Faq = () => {
             onClick={() => toggleTab(2)}
           >
             <span className="text-lg font-medium text-gray-900">
-              What is your return policy?
+              What is Iska's return policy?
             </span>
             {activeTab === 2 ? (
               <svg
@@ -71,9 +71,9 @@ const Faq = () => {
           {activeTab === 2 && (
             <div className="mt-4">
               <p className="text-base text-gray-500">
-                If you're not satisfied with your purchase, we accept returns
-                within 30 days of delivery. To initiate a return, please email
-                us at support@myecommercestore.com with your order number and a
+                If you're not satisfied with your purchase from Iska, we accept returns
+                within 7 days of delivery. To initiate a return, please email
+                us at support@iska.com with your order number and a
                 brief explanation of why you're returning the item.
               </p>
             </div>
@@ -86,7 +86,7 @@ const Faq = () => {
             onClick={() => toggleTab(3)}
           >
             <span className="text-lg font-medium text-gray-900">
-              How do I track my order?
+              How can I track my Iska order?
             </span>
             {activeTab === 3 ? (
               <svg
@@ -121,9 +121,9 @@ const Faq = () => {
           {activeTab === 3 && (
             <div className="mt-4">
               <p className="text-base text-gray-500">
-                You can track your order by clicking the tracking link in your
-                shipping confirmation email, or by logging into your account on
-                our website and viewing the order details.
+                You can track your Iska order by clicking the tracking link in your
+                shipping confirmation email, or by logging into your Iska account and 
+                viewing your order details.
               </p>
             </div>
           )}
@@ -135,7 +135,7 @@ const Faq = () => {
             onClick={() => toggleTab(4)}
           >
             <span className="text-lg font-medium text-gray-900">
-              How do I contact customer support?
+              How do I contact Iska's customer support?
             </span>
             {activeTab === 4 ? (
               <svg
@@ -170,9 +170,9 @@ const Faq = () => {
           {activeTab === 4 && (
             <div className="mt-4">
               <p className="text-base text-gray-500">
-                You can contact our customer support team by emailing us at
-                support@myecommercestore.com, or by calling us at (555) 123-4567
-                between the hours of 9am and 5pm EST, Monday through Friday.
+                You can contact our Iska support team by emailing us at
+                support@iska.com, or by calling us at (233) 123-4567
+                between the hours of 8am and 6pm GMT, Monday through Saturday.
               </p>
             </div>
           )}
@@ -184,7 +184,7 @@ const Faq = () => {
             onClick={() => toggleTab(5)}
           >
             <span className="text-lg font-medium text-gray-900">
-              Can I change or cancel my order?
+              Can I modify or cancel my Iska order?
             </span>
             {activeTab === 5 ? (
               <svg
@@ -219,10 +219,10 @@ const Faq = () => {
           {activeTab === 5 && (
             <div className="mt-4">
               <p className="text-base text-gray-500">
-                Unfortunately, once an order has been placed, we are not able to
-                make changes or cancellations. If you no longer want the items
-                you've ordered, you can return them for a refund within 30 days
-                of delivery.
+                Orders can be modified or cancelled within 1 hour of placing them. 
+                After this window, we cannot make changes as our fulfillment process 
+                begins immediately. If you need to return items, you can do so within 
+                7 days of delivery.
               </p>
             </div>
           )}
@@ -234,7 +234,7 @@ const Faq = () => {
             onClick={() => toggleTab(6)}
           >
             <span className="text-lg font-medium text-gray-900">
-              Do you offer international shipping?
+              Where does Iska deliver to?
             </span>
             {activeTab === 6 ? (
               <svg
@@ -269,7 +269,8 @@ const Faq = () => {
           {activeTab === 6 && (
             <div className="mt-4">
               <p className="text-base text-gray-500">
-                Currently, we only offer shipping within the United States.
+                Currently, we offer delivery services throughout Ghana, with plans to 
+                expand to other West African countries soon.
               </p>
             </div>
           )}
@@ -281,7 +282,7 @@ const Faq = () => {
             onClick={() => toggleTab(7)}
           >
             <span className="text-lg font-medium text-gray-900">
-              What payment methods do you accept?
+              What payment methods does Iska accept?
             </span>
             {activeTab === 7 ? (
               <svg
@@ -316,8 +317,9 @@ const Faq = () => {
           {activeTab === 7 && (
             <div className="mt-4">
               <p className="text-base text-gray-500">
-                We accept visa,mastercard,paypal payment method also we have
-                cash on delivery system.
+                We accept Mobile Money (MTN, Vodafone, AirtelTigo), bank transfers, 
+                Visa, Mastercard, and cash on delivery. All payments are processed in 
+                Ghana Cedis (GH₵).
               </p>
             </div>
           )}

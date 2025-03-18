@@ -12,7 +12,7 @@ const AdminDashboardPage = () => {
       
       <div className="w-full  ">
 
-        <div className="flex gap-[2em] items-start justify-between w-full">
+        <div className="admin_container_div w-full">
           <div className="w-[80px] 800px:w-[330px]">
             <AdminSideBar active={1} />
           </div>

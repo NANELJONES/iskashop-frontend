@@ -13,6 +13,9 @@ import { Link } from "react-router-dom";
 const ShopSettings = () => {
   const { seller } = useSelector((state) => state.seller);
 
+  // Add loading state
+  const [isLoading, setIsLoading] = useState(false);
+
   // Business Info State
   const [businessName, setBusinessName] = useState(seller?.businessInfo?.businessName || "");
   const [ownerFirstName, setOwnerFirstName] = useState(seller?.businessInfo?.ownerFirstName || "");
@@ -178,6 +181,8 @@ const ShopSettings = () => {
   // Modified updateHandler
   const updateHandler = async (e) => {
     e.preventDefault();
+    setIsLoading(true); // Show loading modal
+    // console.log("this is the proof of : ", formData);
   
     const formData = {
       businessInfo: JSON.stringify({
@@ -225,7 +230,12 @@ const ShopSettings = () => {
       dispatch(loadSeller());
     } catch (error) {
       toast.error(error.response?.data?.message || "Error updating shop info");
+    } finally {
+      setIsLoading(false); // Hide loading modal
     }
+
+
+
   };
   // Modified to only handle local state
   const handleRemoveBanner = () => {
@@ -234,6 +244,16 @@ const ShopSettings = () => {
 
   return (
     <div className="w-full min-h-screen flex flex-col items-center">
+      {/* Loading Modal */}
+      {isLoading && (
+        <div className="fixed inset-0 bg-[rgb(0,0,0,0)] bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-text_color p-8 rounded-lg shadow-lg flex flex-col items-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary_color"></div>
+            <p className="mt-4 text-primary_color font-semibold">Updating Shop Information...</p>
+          </div>
+        </div>
+      )}
+
       {/* Logo Section */}
       <div className="w-full 800px:w-[80%] flex flex-col items-center gap-4 mt-5">
         <div className="relative flex flex-col items-center">

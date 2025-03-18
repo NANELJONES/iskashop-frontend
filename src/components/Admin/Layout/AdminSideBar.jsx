@@ -12,6 +12,8 @@ import { FaPaperPlane } from "react-icons/fa";
 import { CiFlag1 } from "react-icons/ci";
 import { CiMoneyBill } from "react-icons/ci";
 import { Link } from "react-router-dom";
+import { IoMdLogOut } from "react-icons/io";
+
 import { RiErrorWarningFill } from "react-icons/ri";
 
 const menuItems = [
@@ -25,22 +27,28 @@ const menuItems = [
   { id: 8, name: "Promotions", icon: FaPaperPlane , path: "/admin-promotions" },
   { id: 9, name: "Insight", icon: MdInsights , path: "/admin-insights" },
   { id: 10, name: "Banner", icon: CiFlag1, path: "/admin-banners" },
+
  
   { id: 11, name: "Financials", icon: CiMoneyBill, path: "/admin-financials" },
  
   { id: 12, name: "Disputes Resolutions", icon: RiErrorWarningFill, path: "/admin-dispute-resolutions" },
  
-  { id: 8, name: "Settings", icon: AiOutlineSetting, path: "/profile" },
+  // { id: 8, name: "Settings", icon: AiOutlineSetting, path: "/profile" },
 ];
 
+
+const handleLogout = () => {
+  localStorage.removeItem("token");
+  window.location.href = "/";
+};
 const AdminSideBar = ({ active, setActive }) => {
   return (
-    <div className="w-full mt-[2.3em] lg:mt-0 shadow-sm rounded-[10px] lg:rounded-none border border-primary_color">
+    <div className="w-full mt-[2.3em] custom_scrollbar-2 overflow-y-auto lg:mt-0 shadow-sm rounded-[10px] lg:rounded-none  shadow-sm">
       <div className="hidden lg:block bg-primary_color p-6">
         <h6 className="text-text_color text-[2em]">Admin Panel</h6>
       </div>
 
-      <div className="p-2">
+      <div className="p-2 h-[90%] ">
         {menuItems.map((item) => (
           <Link to={item.path} key={item.id}>
             <div
@@ -66,6 +74,16 @@ const AdminSideBar = ({ active, setActive }) => {
           </Link>
         ))}
       </div>
+
+      <div className="p-2  bg-primary_red w-[90%] mx-auto h-[90%] " onClick={handleLogout}>
+        <div className="flex px-4 py-2 items-center cursor-pointer w-full rounded-md lg:rounded-none">
+          <IoMdLogOut size={20} className="text-text_color" />
+          <span className="pl-3 text-text_color hidden md:block ">Logout</span>
+        </div>
+      </div>
+
+
+
     </div>
   );
 };

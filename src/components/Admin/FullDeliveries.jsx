@@ -9,40 +9,7 @@ import { MdDelete } from "react-icons/md";
 import { Country,State , City} from 'country-state-city';
 import DeliveryCostVariation from './Deliveries/DeliveryCostVariation';
 import WeightVariation from "./Deliveries/WeightVariation"
-
-
-const AllDeliveries = ()=>{
-//   {City.getCitiesOfState("GH", "AA").map((each_city, index) => (
-//  console.log(each_city.name)
-//   ))}
-  
-
-
-return(
-  <div>
-      <div>
-    <h4>All  </h4>
-    <h2 className='font-bold'>Deliveries</h2>
-    {/* {State.getStatesOfCountry("GH").map((each_state, index) => (
-  <p key={index}>{each_state.name} {each_state.isoCode}</p>
-))} */}
-
-<h1>All Deliveries To be made will show be displayed here for management </h1>
-
-{/* {City.getCitiesOfState("GH", "AA").map((each_city, index) => (
-  <p key={index}>{each_city.name}</p>
-))} */}
-
-    {/* {State.getAllStates().map((each, index) => (
-  <p key={index}>{each.name}</p>
-))} */}
-
-<h1></h1>
- 
-    </div>
-  </div>
-)
-}
+import AllDeliveries from './Deliveries/AllDeliveries';
 
 
 
@@ -553,8 +520,8 @@ const FullDeliveries = () => {
   }
   return (
 
-    <div>
-        <h1 className=''>All Deliveries</h1>
+    <div className='mt-[2em]'>
+     
       <div className='flex gap-2'>
       {Delivery_Tabs.map((each_tab, index)=>{
         return <button className={`${active.TabValue === each_tab.TabValue ? "bg-primary_color  text-text_color" :"bg-none border border-primary_color text-primary_color"}`} key={index} 

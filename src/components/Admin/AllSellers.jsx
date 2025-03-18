@@ -140,14 +140,14 @@ const AllSellers = () => {
         name: item?.name,
         email: item?.email,
         joinedAt: item.createdAt.slice(0, 10),
-        address: item.address,
+        address: item?.address?.city
       });
     });
 
   return (
-    <div className="w-full flex justify-center pt-5">
+    <div className="w-full flex justify-center px-2 pt-5">
       <div className="w-[97%]">
-        <h3 className="text-[22px] font-Poppins pb-2">All Users</h3>
+        <h3 className=" font-Poppins pb-2">All Vendors</h3>
         <div className="w-full min-h-[45vh] bg-white rounded">
           <DataGrid
             rows={row}

@@ -50,7 +50,11 @@ import {
   AdminDashboardWithdraw,
     AdminCategories,
     AdminDeliveries,
-    AdminFinancials
+    AdminFinancials,
+    AdminPromotionsPage,
+    AdminBannersPage,
+    AdminInsightsPage,
+    AdminDisputeResolutionPage
 } from "./routes/AdminRoutes";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -399,6 +403,45 @@ const App = () => {
             </ProtectedAdminRoute>
           }
         />
+
+
+<Route
+          path="/admin-promotions"
+          element={
+            <ProtectedAdminRoute>
+              <AdminPromotionsPage />
+            </ProtectedAdminRoute>
+          }
+        />
+
+<Route
+          path="/admin-banners"
+          element={
+            <ProtectedAdminRoute>
+              <AdminBannersPage />
+            </ProtectedAdminRoute>
+          }
+        />
+
+<Route
+          path="/admin-insights"
+          element={
+            <ProtectedAdminRoute>
+              <AdminInsightsPage />
+            </ProtectedAdminRoute>
+          }
+        />
+
+<Route
+          path="/admin-dispute-resolutions"
+          element={
+            <ProtectedAdminRoute>
+              <AdminDisputeResolutionPage />
+            </ProtectedAdminRoute>
+          }
+        />
+
+
 
 
         <Route

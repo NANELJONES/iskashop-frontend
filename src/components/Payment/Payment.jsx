@@ -30,6 +30,7 @@ const Payment = () => {
     const config = {
       headers: {
         "Content-Type": "application/json",
+        'token': localStorage.getItem('token')
       },
     };
 
@@ -39,6 +40,7 @@ const Payment = () => {
 
     await axios
     .post(`${server}/order/create-order`, order, config)
+    
     .then((res) => {
       navigate("/order/success");
       toast.success("Order successful!");

@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { server } from "../../../server";
 import { Country, State } from "country-state-city";
 
+
 const SingleTax = ({
   tax,
   index,
@@ -109,10 +110,10 @@ const SingleTax = ({
   };
 
   return (
-    <div className="border p-4 rounded-lg shadow-sm w-full mb-3 gap-2 text-sm">
-      <div className="flex items-start border-b-2 pb-[1em] border-b-primary_color gap-2">
+    <div className="border  p-4 rounded-lg shadow-sm w-full mb-3 gap-2 text-sm">
+      <div className="grid grid-cols-2 md:grid-cols-5  border-b-2 pb-[1em] border-b-primary_color gap-2">
         {/* Country */}
-        <div className="flex flex-col w-full">
+        <div className="flex  flex-col w-full">
           <label className="text-sm text-gray-600">Country</label>
           <select
             value={editedTax.country}
@@ -133,7 +134,7 @@ const SingleTax = ({
         <div className="flex flex-col w-full">
           <label className="text-sm text-gray-600">State/District</label>
           <select
-            multiple
+           
             onChange={(e) => {
               const selectedDistricts = Array.from(
                 e.target.selectedOptions,
@@ -200,13 +201,13 @@ const SingleTax = ({
                 <>
                   <button
                     onClick={handleEdit}
-                    className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+                    className="bg-secondary_color text-text_color p-2 px-[2em] rounded hover:bg-opacity-80"
                   >
                     Edit
                   </button>
                   <button
                     onClick={handleDelete}
-                    className="bg-red-500 text-white p-2 rounded hover:bg-red-600"
+                    className="bg-primary_red text-text_color p-2  px-[2em] rounded hover:bg-opacity-80"
                   >
                     Delete
                   </button>
@@ -225,7 +226,7 @@ const SingleTax = ({
               key={i}
               className="flex p-2 rounded-sm bg-primary_color text-text_color items-center gap-2"
             >
-              <span>{district}</span>
+              <span className="text-text_color">{district}</span>
               {isEditing && (
                 <button
                   onClick={() => removeDistrict(district)}
@@ -351,7 +352,7 @@ const Taxes = () => {
   }, []);
 
   return (
-    <div className="mt-10 flex flex-wrap text-sm">
+    <div className="mt-10 flex  flex-col gap-[2em] text-sm">
       <div className="flex justify-between w-full">
         <h2 className="font-bold">Taxes</h2>
         <button
