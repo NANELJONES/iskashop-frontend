@@ -38,7 +38,8 @@ import {
   ShopWithDrawMoneyPage,
   ShopInboxPage,
   ShopRemittance,
-  ShopPromotions
+  ShopPromotions,
+  SingleProductPage
 } from "./routes/ShopRoutes";
 import {
   AdminDashboardPage,
@@ -55,7 +56,9 @@ import {
     AdminBannersPage,
     AdminInsightsPage,
     AdminDisputeResolutionPage
+  
 } from "./routes/AdminRoutes";
+import OrdersPage from "./pages/OrdersPage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Store from "./redux/store";
@@ -67,6 +70,7 @@ import SellerProtectedRoute from "./routes/SellerProtectedRoute";
 import { getAllProducts } from "./redux/actions/product";
 import { getAllEvents } from "./redux/actions/event";
 import axios from "axios";
+import ForgotPassword from "./pages/ForgotPassword.jsx";
 import { server } from "./server";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
@@ -104,6 +108,19 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
+          </Routes>
+
+
+          <Routes>
+            <Route path="/orders/:id" element={<OrdersPage />} />
+          </Routes>
+
+
+          
+          <Routes>
+            <Route path="/forgot-password" element={<ForgotPassword/>} />
+
+     
           </Routes>
       
    
@@ -166,7 +183,8 @@ const App = () => {
           }
         />
         <Route path="/shop/preview/:id" element={<ShopPreviewPage />} />
-        {/* shop Routes */}
+        <Route path="/seller-product/:id" element={<SingleProductPage />} />
+        {/* shop Routes */} 
         <Route path="/shop-create" element={<ShopCreatePage />} />
         <Route path="/shop-login" element={<ShopLoginPage />} />
         <Route

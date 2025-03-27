@@ -145,16 +145,27 @@ const AllSellers = () => {
     });
 
   return (
-    <div className="w-full flex justify-center px-2 pt-5">
-      <div className="w-[97%]">
-        <h3 className=" font-Poppins pb-2">All Vendors</h3>
-        <div className="w-full min-h-[45vh] bg-white rounded">
+    <div className="w-full flex justify-center px-2 pt-5 overflow-x-hidden">
+      <div className="w-full max-w-full px-4">
+        <h3 className="font-Poppins pb-2">All Vendors</h3>
+        <div className="w-full min-h-[45vh] bg-white rounded overflow-x-auto">
           <DataGrid
             rows={row}
             columns={columns}
             pageSize={10}
             disableSelectionOnClick
             autoHeight
+            sx={{
+              "& .MuiDataGrid-columnHeaders": {
+                color: "var(--primary-color)",
+                fontWeight: "bold"
+              },
+              "& .MuiDataGrid-cell": {
+                color: "var(--primary-color)"
+              },
+              width: "100%",
+              overflowX: "auto"
+            }}
           />
         </div>
         

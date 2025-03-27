@@ -7,6 +7,7 @@ import Loader from "../Layout/Loader";
 import { getAllOrdersOfShop } from "../../redux/actions/order";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import AccountReview from "./AccountReview";
+import OrderComponent from "../OrderComponent";
 
 const AllOrders = () => {
   const { orders, isLoading } = useSelector((state) => state.order);
@@ -83,6 +84,10 @@ const AllOrders = () => {
 
   return (
     <>
+
+ 
+    <h1 className="font-Poppins mt-10 text-primary_color">All Orders</h1>
+    
       {seller.adminData.shopApproval === "Pending" && (
         <AccountReview message="All Orders" img_path="/account_review.svg" />
       )}
@@ -91,16 +96,13 @@ const AllOrders = () => {
           {isLoading ? (
             <Loader />
           ) : (
-            <div className="w-full mx-8 pt-1 mt-10 bg-white">
-              <DataGrid
-                rows={row}
-                columns={columns}
-                pageSize={10}
-                disableSelectionOnClick
-                autoHeight
-              />
+            <div className="w-full px-[1em] mx-auto py-[2em]  pt-1 mt-10 bg-white">
+           <OrderComponent orders={orders} />
             </div>
           )}
+
+
+
         </>
       )}
     </>

@@ -42,49 +42,77 @@ const handleLogout = () => {
   window.location.href = "/";
 };
 const AdminSideBar = ({ active, setActive }) => {
+  // Initialize isMenuOpen based on screen width
+  const [isMenuOpen, setIsMenuOpen] = React.useState(window.innerWidth >= 768);
+
+  // Update isMenuOpen when window is resized
+  React.useEffect(() => {
+    const handleResize = () => {
+      setIsMenuOpen(window.innerWidth >= 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
-    <div className="w-full mt-[2.3em] custom_scrollbar-2 overflow-y-auto lg:mt-0 shadow-sm rounded-[10px] lg:rounded-none  shadow-sm">
-      <div className="hidden lg:block bg-primary_color p-6">
-        <h6 className="text-text_color text-[2em]">Admin Panel</h6>
+    <>
+      {/* sidebar menu button */}
+      <div 
+        className="absolute right-[1em] top-[1em] bg-primary_color w-[3em] md:hidden p-4 rounded-md shadow-md cursor-pointer" 
+        onClick={toggleMenu}
+      >
+        <RxDashboard className="text-text_color text-[1em]" />
       </div>
 
-      <div className="p-2 h-[90%] ">
-        {menuItems.map((item) => (
-          <Link to={item.path} key={item.id}>
-            <div
-              className={`${
-                active === item.id ? "bg-primary_color" : "#17637C"
-              } flex p-4 items-center cursor-pointer w-full mb-4 rounded-md lg:rounded-none`}
-              onClick={() => setActive(item.id)}
-            >
-              <item.icon
-                size={20}
-                color={active === item.id ? "rgb(255,255,255)" : "#17637C"}
-              />
-              <span
-                className={`pl-3 ${
-                  active === item.id
-                    ? "text-[rgb(255,255,255)]"
-                    : "text-primary_color"
-                } 800px:block hidden`}
-              >
-                {item.name}
-              </span>
+      {/* whole menu */}
+      {(isMenuOpen || window.innerWidth >= 768) && (
+        <div className="w-full h-[90vh] sticky top-2 min-h-[400px] w-[80px] 800px:w-[330px] mt-[2.3em] custom_scrollbar-2 overflow-y-auto lg:mt-0 shadow-sm rounded-[10px] lg:rounded-none shadow-sm">
+          <div className="hidden lg:block bg-primary_color p-6">
+            <h6 className="text-text_color">Admin</h6>
+            <h2 className="text-text_color "> Panel</h2>
+          </div>
+
+          <div className="p-2 ">
+            {menuItems.map((item) => (
+              <Link to={item.path} key={item.id}>
+                <div
+                  className={`${
+                    active === item.id ? "bg-primary_color" : "#17637C"
+                  } flex p-4 items-center cursor-pointer w-full mb-4 rounded-md lg:rounded-none`}
+                  onClick={() => setActive(item.id)}
+                >
+                  <item.icon
+                    size={20}
+                    color={active === item.id ? "rgb(255,255,255)" : "#17637C"}
+                  />
+                  <span
+                    className={`pl-3 ${
+                      active === item.id
+                        ? "text-[rgb(255,255,255)]"
+                        : "text-primary_color"
+                    }`}
+                  >
+                    {item.name}
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          <div className="p-2  bg-primary_red w-[90%] mx-auto " onClick={handleLogout}>
+            <div className="flex px-4 py-2 items-center cursor-pointer w-full rounded-md lg:rounded-none">
+              <IoMdLogOut size={20} className="text-text_color" />
+              <span className="pl-3 text-text_color">Logout</span>
             </div>
-          </Link>
-        ))}
-      </div>
-
-      <div className="p-2  bg-primary_red w-[90%] mx-auto h-[90%] " onClick={handleLogout}>
-        <div className="flex px-4 py-2 items-center cursor-pointer w-full rounded-md lg:rounded-none">
-          <IoMdLogOut size={20} className="text-text_color" />
-          <span className="pl-3 text-text_color hidden md:block ">Logout</span>
+          </div>
         </div>
-      </div>
-
-
-
-    </div>
+      )}
+    </>
   );
 };
 

@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { createProduct } from "../../redux/actions/product";
+import { updateProduct } from "../../redux/actions/product";
 import { categoriesData } from "../../static/data";
 import { toast } from "react-toastify";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import AccountReview from "./AccountReview";
+import AccountReview from "../Shop/AccountReview";
+import { server } from "../../server";
 
+import axios from "axios";
 // Dummy data
 const dummyCategories = [
   { "_id": "65f1a1b2c3d4e5f6a7b80101", "name": "Electronics" },
@@ -75,11 +77,14 @@ const dummyModels = [
   { "_id": "65f1a1b2c3d4e5f6a7b80508", "name": "C300 2024", "category": "65f1a1b2c3d4e5f6a7b80102", "subcategory": "65f1a1b2c3d4e5f6a7b80205", "brand": "65f1a1b2c3d4e5f6a7b80408" }
 ];
 
-const CreateProduct = () => {
+const Product = ({id}) => {
   const { seller } = useSelector((state) => state.seller);
   const { success, error } = useSelector((state) => state.products);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  // Add a state to track if initial data is loaded
+  const [isInitialized, setIsInitialized] = useState(false);
 
   const [images, setImages] = useState([]);
   const [name, setName] = useState("");
@@ -116,7 +121,7 @@ const CreateProduct = () => {
   const [filteredMakes, setFilteredMakes] = useState([]);
   const [filteredBrands, setFilteredBrands] = useState([]);
   const [filteredModels, setFilteredModels] = useState([]);
-
+  const [loading, setLoading] = useState(true);
   // Quill editor modules configuration
   const modules = {
     toolbar: [
@@ -139,6 +144,90 @@ const CreateProduct = () => {
     'link'
   ];
 
+  // Modify the initialization useEffect
+  useEffect(() => {
+    // Set the dummy data
+    setCategories(dummyCategories);
+    setSubcategories(dummySubcategories);
+    setMakes(dummyMakes);
+    setBrands(dummyBrands);
+    setModels(dummyModels);
+    
+    // Mark as initialized
+    setIsInitialized(true);
+    setLoading(false);
+  }, []);
+
+  //Product data fetch effect
+  useEffect(() => {
+    const fetchProductData = async () => {
+      if (!id) {
+        setLoading(false);
+        return;
+      }
+  
+      try {
+        const { data } = await axios.get(`${server}/product/get-product-details/${id}`);
+  
+        if (data.product) {
+          const product = data.product;
+          console.log("Fetched Product:", product);
+          
+          // Set category first
+          setCategory(product?.category || "");
+          
+          // Filter subcategories based on category
+          const relevantSubcategories = dummySubcategories.filter(
+            sub => sub.category === product?.category
+          );
+          setFilteredSubcategories(relevantSubcategories);
+          
+          // Set subcategory
+          setSubCategory(product?.subCategory || "");
+          
+          // Filter makes based on subcategory
+          const relevantMakes = dummyMakes.filter(
+            make => make.subcategory === product?.subCategory
+          );
+          setFilteredMakes(relevantMakes);
+          
+          // Set make
+          setMake(product?.make || "");
+          
+          // Filter brands based on make
+          const relevantBrands = dummyBrands.filter(
+            brand => brand.make === product?.make
+          );
+          setFilteredBrands(relevantBrands);
+          
+          // Set remaining fields
+          setBrand(product?.brand || "");
+          setName(product?.name || "");
+          setDescription(product?.description || "");
+          setTags(product?.tags || "");
+          setOriginalPrice(product?.originalPrice || "");
+          setDiscountPrice(product?.discountPrice || "");
+          setStock(product?.stock || "");
+          setDimensions(product?.dimensions || { length: "", breadth: "", height: "" });
+          setColor(product?.color || "");
+          setSafetyPolicy(product?.safetyPolicy || "");
+          setRefundPolicy(product?.refundPolicy || "");
+          setTaxes(product?.taxes || "No Taxes");
+          setWarranty(product?.warranty || "");
+          setWeight(product?.weight !== undefined ? Number(product.weight) : '');
+          setImages(product?.images?.map(img => img.url) || []);
+        }
+      } catch (error) {
+        console.error("Error fetching product:", error);
+        toast.error("Failed to fetch product data");
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    fetchProductData();
+  }, [id]);
+
   useEffect(() => {
     if (error) {
       toast.error(error);
@@ -146,18 +235,9 @@ const CreateProduct = () => {
     if (success) {
       toast.success("Product created successfully!");
       navigate("/dashboard");
-      window.location.reload();
+    //   window.location.reload();
     }
-  }, [dispatch, error, success]);
-
-  // Replace the fetch useEffect with direct data assignment
-  useEffect(() => {
-    setCategories(dummyCategories);
-    setSubcategories(dummySubcategories);
-    setMakes(dummyMakes);
-    setBrands(dummyBrands);
-    setModels(dummyModels);
-  }, []);
+  }, [error, success, navigate]);
 
   // Update the filtering useEffects
   useEffect(() => {
@@ -204,65 +284,141 @@ const CreateProduct = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+
+
+
+  const tester = (e) => {
     e.preventDefault();
-  
-    // Convert dimensions values to numbers in place
-    dimensions.length = Number(dimensions.length) || 0;
-    dimensions.breadth = Number(dimensions.breadth) || 0;
-    dimensions.height = Number(dimensions.height) || 0;
-  
+    console.log(weight);
+    toast.success("Tester");
+  } 
+
+  const handleSubmit = async() => {
+    
     const newForm = new FormData();
   
-    // Append each image individually
+    toast.success("Handling the submit");
+  
+  //  Append each image individually
     images.forEach((image) => {
       newForm.append("images", image);
     });
   
+    // Required fields
     newForm.append("name", name);
     newForm.append("description", description);
     newForm.append("category", category);
-    newForm.append("tags", tags);
-    newForm.append("originalPrice", originalPrice);
+    newForm.append("subCategory", subCategory);
+    newForm.append("make", make);
+    newForm.append("brand", brand);
     newForm.append("discountPrice", discountPrice);
     newForm.append("stock", stock);
-    newForm.append("subCategory", subCategory);
-    newForm.append("brand", brand);
-    newForm.append("make", make);
-    newForm.append("dimensions", JSON.stringify(dimensions));
-    newForm.append("color", color);
-    newForm.append("safetyPolicy", safetyPolicy);
-    newForm.append("refundPolicy", refundPolicy);
-    newForm.append("taxes", taxes);
-    newForm.append("warranty", warranty);
-    newForm.append("weight", weight);
     newForm.append("shopId", seller._id);
   
-    // Log all form data
-    console.log("Form Data:");
-    for (let [key, value] of newForm.entries()) {
-      console.log(`${key}: ${value}`);
+    // Optional fields - ensure they're not undefined/null before appending
+    if (originalPrice) newForm.append("originalPrice", originalPrice);
+    if (tags) newForm.append("tags", tags);
+    if (color) newForm.append("color", color);
+    if (safetyPolicy) newForm.append("safetyPolicy", safetyPolicy);
+    if (refundPolicy) newForm.append("refundPolicy", refundPolicy);
+    if (taxes) newForm.append("taxes", taxes);
+    if (warranty) newForm.append("warranty", warranty);
+    if (weight || weight === 0) {
+      const parsedWeight = Number(weight);
+      if (!isNaN(parsedWeight)) {
+        newForm.append("weight", parsedWeight);
+      }
     }
   
-     dispatch(createProduct(newForm));
+    // Only append dimensions if at least one value exists
+    const hasDimensions = dimensions.length || dimensions.breadth || dimensions.height;
+    if (hasDimensions) {
+      newForm.append("dimensions", JSON.stringify(dimensions));
+    }
+  
+
+
+
+    const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          'token': localStorage.getItem('token'),
+        },
+      };  
+  
+      const { data } = await axios.put(
+        `${server}/product/update-product/${id}`,
+        newForm,
+        config
+      );
+
+      if(data.success){
+        toast.success("Product updated successfully!");
+        window.location.reload();
+      }else{
+        toast.error("Failed to update product!");
+      }
+
+    // dispatch(updateProduct(id, newForm));
+ 
+
+
+ 
   };
+
+
+  // Only show loading when actually loading
+  if (loading && !isInitialized) {
+    return <div>Loading product data...</div>;
+  }
+
+  // Don't show the loading message for seller, just render without the seller-specific content
+  if (!seller) {
   return (
-    <>
-      {seller.adminData.shopApproval === "Pending" && (
+        <div className="w-[95%] mx-auto bg-white rounded-[4px] py-8">
+        <h2 className="font-Poppins font-semibold mb-8 text-primary_color">Product Details</h2>
+        {/* Render the form without seller-specific features */}
+        {/* ... rest of your form ... */}
+        </div>
+  );
+
+  }
+
+//   // Debug what's being rendered
+//   console.log("Rendering with data:", {
+//     name,
+//     category,
+//     subCategory,
+//     make,
+//     brand,
+//     seller
+//   });
+
+  return (
+    <div className="w-[95%] mx-auto bg-white rounded-[4px] py-8">
+        <h2 className="font-Poppins  font-semibold  text-primary_color">Product Details</h2>
+      
+
+{/* <button className="bg-primary_color text-text_color px-8 py-3 rounded-md hover:bg-primary_color/80 transition-colors text-sm font-medium" onClick={tester}>Tester</button> */}
+ 
+ 
+      {seller?.adminData?.shopApproval === "Pending" && (
         <AccountReview message="Create Product" img_path="/account_review.svg" />
       )}
 
-      {seller.adminData.shopApproval === "Rejected" && (
+      {seller?.adminData?.shopApproval === "Rejected" && (
         <h4 className="text-center text-red-500">
           Your Account is Rejected by IskaShop. Please contact support for more information.
         </h4>
       )}
 
-      {seller.adminData.shopApproval === "Approved" && (
+      {seller?.adminData?.shopApproval === "Approved" && (
         <div className="w-[95%] mx-auto bg-white rounded-[4px] py-8">
-          <h2 className="font-Poppins  font-semibold mb-8 text-primary_color">Add New Product</h2>
-          
-          <form onSubmit={handleSubmit} className="space-y-8">
+       
+
+
+          <form  className="space-y-8">
+           
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <div className="space-y-6">
 
@@ -340,7 +496,11 @@ const CreateProduct = () => {
                       >
                         <option value="">Choose a manufacturer</option>
                         {filteredMakes.map((m) => (
-                          <option value={m._id} key={m._id}>
+                          <option 
+                            value={m._id} 
+                            key={m._id}
+                            selected={m._id === make}
+                          >
                             {m.name}
                           </option>
                         ))}
@@ -482,9 +642,19 @@ const CreateProduct = () => {
                       </label>
                       <input
                         type="number"
-                        value={weight}
+                        value={weight === '' ? '' : Number(weight).toString()}
+                        min="0"
+                        step="0.01"
                         className="w-full text-sm text-primary_color p-[1em] border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                        onChange={(e) => setWeight(e.target.value)}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          if (value === '' || value === '0.') {
+                            setWeight(value);
+                          } else {
+                            const numValue = Number(value);
+                            setWeight(isNaN(numValue) ? '' : numValue);
+                          }
+                        }}
                         placeholder="Enter weight..."
                       />
                     </div>
@@ -520,12 +690,49 @@ const CreateProduct = () => {
                 {images.length > 0 && (
                   <div className="grid grid-cols-4 gap-4 mt-4">
                     {images.map((image, index) => (
-                      <div key={index} className="relative">
+                      <div key={index} className="relative group">
                         <img
                           src={image}
                           alt={`product-${index}`}
                           className="w-full h-[120px] object-cover rounded-md"
                         />
+                        <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                          <label 
+                            className="cursor-pointer bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600"
+                            title="Replace Image"
+                          >
+                            <input
+                              type="file"
+                              className="hidden"
+                              onChange={(e) => {
+                                const file = e.target.files[0];
+                                if (file) {
+                                  const reader = new FileReader();
+                                  reader.onload = () => {
+                                    if (reader.readyState === 2) {
+                                      const newImages = [...images];
+                                      newImages[index] = reader.result;
+                                      setImages(newImages);
+                                    }
+                                  };
+                                  reader.readAsDataURL(file);
+                                }
+                              }}
+                            />
+                            <i className="fas fa-sync-alt text-sm"></i>
+                          </label>
+                          
+                          <button
+                            className="bg-red-500 text-white p-2 rounded-full hover:bg-red-600"
+                            onClick={() => {
+                              const newImages = images.filter((_, i) => i !== index);
+                              setImages(newImages);
+                            }}
+                            title="Remove Image"
+                          >
+                            <i className="fas fa-trash text-sm"></i>
+                          </button>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -593,16 +800,23 @@ const CreateProduct = () => {
             <div className="flex justify-center mt-8">
               <button
                 type="submit"
+              onClick={()=>{
+                handleSubmit();
+              }}
+             
                 className="bg-primary_color text-text_color px-8 py-3 rounded-md hover:bg-primary_color/80 transition-colors text-sm font-medium"
               >
-                Create Product
+                Update Product
               </button>
+
+
+              
             </div>
           </form>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
-export default CreateProduct;
+export default Product;

@@ -8,7 +8,13 @@ import { getAllOrdersOfShop } from "../../redux/actions/order";
 import { getAllProductsShop } from "../../redux/actions/product";
 import { Button } from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
+import { CiMoneyBill } from "react-icons/ci";
 import AccountReview from "./AccountReview";
+import DataCard from "../DataVisualization/DataCard";
+import RevenueChart from "../DataVisualization/RevenueChart";
+import { FaPaperPlane } from "react-icons/fa";
+import AnimateDown from "../Animations/AnimateDown";
+
 
 const DashboardHero = () => {
   const dispatch = useDispatch();
@@ -20,23 +26,45 @@ const DashboardHero = () => {
      dispatch(getAllOrdersOfShop(seller._id));
      dispatch(getAllProductsShop(seller._id));
 
-     console.log(seller);
+     console.log(orders);
+     
   }, [dispatch]);
 
   const availableBalance = seller?.availableBalance.toFixed(2);
 
   const columns = [
-    { field: "id", headerName: "Order ID", minWidth: 150, flex: 0.7 },
-
+    { 
+      field: "product", 
+      headerName: "Product", 
+      minWidth: 200,
+      flex: 1,
+      headerClassName: 'font-Poppins text-[#17637C]',
+      cellClassName: 'font-Poppins text-[#17637C]',
+      renderCell: (params) => {
+        return (
+          <div className="flex items-center gap-2">
+            <img 
+              src={params.value.image} 
+              alt={params.value.name}
+              className="w-[35px] h-[35px] object-cover rounded-full"
+            />
+            <span>{params.value.name}</span>
+          </div>
+        );
+      }
+    },
     {
       field: "status",
       headerName: "Status",
       minWidth: 130,
       flex: 0.7,
+      headerClassName: 'font-Poppins text-[#17637C]',
       cellClassName: (params) => {
-        return params.getValue(params.id, "status") === "Delivered"
-          ? "greenColor"
-          : "redColor";
+        return `font-Poppins text-primary_color ${
+          params.getValue(params.id, "status") === "Delivered"
+            ? "greenColor"
+            : "redColor"
+        }`;
       },
     },
     {
@@ -45,16 +73,18 @@ const DashboardHero = () => {
       type: "number",
       minWidth: 130,
       flex: 0.7,
+      headerClassName: 'font-Poppins text-[#17637C]',
+      cellClassName: 'font-Poppins text-[#17637C]'
     },
-
     {
       field: "total",
       headerName: "Total",
       type: "number",
       minWidth: 130,
       flex: 0.8,
+      headerClassName: 'font-Poppins text-[#17637C]',
+      cellClassName: 'font-Poppins text-[#17637C]'
     },
-
     {
       field: " ",
       flex: 1,
@@ -81,10 +111,14 @@ const DashboardHero = () => {
   orders && orders.forEach((item) => {
     row.push({
         id: item._id,
+        product: {
+          name: item.cart[0]?.name || "N/A",
+          image: item.cart[0]?.images[0]?.url || "/no-image.png"
+        },
         itemsQty: item.cart.reduce((acc, item) => acc + item.qty, 0),
-        total: "US$ " + item.totalPrice,
+        total: "GH₵ " + item.totalPrice,
         status: item.status,
-      });
+    });
   });
   return (
 
@@ -96,74 +130,59 @@ const DashboardHero = () => {
 
  {seller.adminData.shopApproval === "Approved" && (
     <div className="w-full p-8">
-    <h3 className="text-[22px] font-Poppins pb-2">Overview</h3>
-    <div className="w-full block 800px:flex items-center justify-between">
-   
-{/*    
-      <div className="w-full mb-4 800px:w-[30%] min-h-[20vh] bg-white shadow rounded px-2 py-5">
-        <div className="flex items-center">
-          <AiOutlineMoneyCollect
-            size={30}
-            className="mr-2"
-            fill="#00000085"
-          />
-          <h3
-            className={`${styles.productTitle} !text-[18px] leading-5 !font-[400] text-[#00000085]`}
-          >
-            Account Balance{" "}
-            <span className="text-[16px]">(with 10% service charge)</span>
-          </h3>
-        </div>
-        <h5 className="pt-2 pl-[36px] text-[22px] font-[500]">${availableBalance}</h5>
-        <Link to="/dashboard-withdraw-money">
-          <h5 className="pt-4 pl-[2] text-[#077f9c]">Withdraw Money</h5>
-        </Link>
-      </div> */}
+    <h1 className="font-Poppins pb-2">Overview</h1>
+    <div className="w-full grid grid-row-1 grid-cols-1 md:grid-cols-3 gap-4">
 
-      <div className="w-full mb-4 800px:w-[30%] min-h-[20vh] bg-white shadow rounded px-2 py-5">
-        <div className="flex items-center">
-          <MdBorderClear size={30} className="mr-2" fill="#00000085" />
-          <h3
-            className={`${styles.productTitle} !text-[18px] leading-5 !font-[400] text-[#00000085]`}
-          >
-            All Orders
-          </h3>
-        </div>
-        <h5 className="pt-2 pl-[36px] text-[22px] font-[500]">{orders && orders.length}</h5>
-        <Link to="/dashboard-orders">
-          <h5 className="pt-4 pl-2 text-[#077f9c]">View Orders</h5>
-        </Link>
-      </div>
+<AnimateDown>
+      <DataCard heading="All Orders" value={orders && orders.length} icon={<MdBorderClear size={20} className="mr-2 " fill="primary_color" />} link="/dashboard-orders" />
+</AnimateDown>
 
-      <div className="w-full mb-4 800px:w-[30%] min-h-[20vh] bg-white shadow rounded px-2 py-5">
-        <div className="flex items-center">
-          <AiOutlineMoneyCollect
-            size={30}
-            className="mr-2"
-            fill="#00000085"
-          />
-          <h3
-            className={`${styles.productTitle} !text-[18px] leading-5 !font-[400] text-[#00000085]`}
-          >
-            All Products
-          </h3>
-        </div>
-        <h5 className="pt-2 pl-[36px] text-[22px] font-[500]">{products && products.length}</h5>
-        <Link to="/dashboard-products">
-          <h5 className="pt-4 pl-2 text-[#077f9c]">View Products</h5>
-        </Link>
-      </div>
+
+
+<AnimateDown>
+      <DataCard heading="Promotions" value="0" icon={<FaPaperPlane size={20} className="mr-2 text-primary_color "  fill="primary_color" />} link="/shop-promotions" />
+</AnimateDown>
+
+
+
+
+      <AnimateDown>
+      <DataCard heading="All Products" value={products && products.length} icon={<MdBorderClear size={20} className="mr-2 " fill="primary_color" />} link="/dashboard-products" />
+</AnimateDown>
+
+  
     </div>
+
+
+<RevenueChart  orders={orders}/>
+
     <br />
-    <h3 className="text-[22px] font-Poppins pb-2">Latest Orders</h3>
+    <h3 className=" font-Poppins pb-2">Latest Orders</h3>
     <div className="w-full min-h-[45vh] bg-white rounded">
-    <DataGrid
-      rows={row}
-      columns={columns}
-      pageSize={10}
-      disableSelectionOnClick
-      autoHeight
-    />
+      <DataGrid
+        rows={row}
+        columns={columns}
+        pageSize={10}
+        disableSelectionOnClick
+        autoHeight
+        sx={{
+          border: '1px solid #17637C',
+          '& .MuiDataGrid-columnHeaders': {
+            borderBottom: '2px solid #17637C',
+            borderWidth: '2px',
+            paddingBottom: '15px'
+          },
+          '& .MuiDataGrid-cell': {
+            borderColor: '#17637C'
+          },
+          '& .MuiDataGrid-columnSeparator': {
+            color: '#17637C'
+          },
+          '& .MuiDataGrid-footerContainer': {
+            borderTop: '2px solid #17637C'
+          }
+        }}
+      />
     </div>
   </div>
  )}

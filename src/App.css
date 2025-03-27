@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --primary_color: #17637C;  /* Ocean blue color */
+  --secondary-color: #F68B1F;
+  --primary-red: #9D2C2C;
+  --primary-green: #15D842;
+  --gray-bg: #D9D9D9;
+  --text-color: rgb(255,255,255);
+}
+
 /* fonts */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
@@ -128,8 +137,11 @@ input{
 }
 
 
+select{
+  @apply border  border-primary_color text-primary_color rounded-md
+}
 .card{
-  @apply bg-[#ffffff] shadow-xl shadow-[rgba(51,38,174,0.2)];
+  @apply bg-[#ffffff] border border-primary_color rounded-[10px] shadow-xl shadow-[rgba(51,38,174,0.08)];
   
 }
 .admin_container_div{

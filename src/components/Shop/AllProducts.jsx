@@ -8,6 +8,9 @@ import { getAllProductsShop } from "../../redux/actions/product";
 import { deleteProduct } from "../../redux/actions/product";
 import Loader from "../Layout/Loader";
 import AccountReview from "./AccountReview";
+import AllProductsComponent from "../AllProductsComponent"; 
+import SearchAndFilter from "../SearchAndFilter";     
+
 const AllProducts = () => {
   const { products, isLoading } = useSelector((state) => state.products);
   const { seller } = useSelector((state) => state.seller);
@@ -62,7 +65,7 @@ const AllProducts = () => {
       renderCell: (params) => {
         return (
           <>
-            <Link to={`/product/${params.id}`}>
+            <Link to={`/seller-product/${params.id}`}>
               <Button>
                 <AiOutlineEye size={20} />
               </Button>
@@ -104,23 +107,30 @@ const AllProducts = () => {
     });
 
   return (
+
     <>
+        <h1 className="font-Poppins mt-10 text-primary_color">All Products</h1>
       {seller.adminData.shopApproval === "Pending" && (
         <AccountReview message="All Products" img_path="/account_review.svg" />
       )}
       {seller.adminData.shopApproval === "Approved" && (
         <>
+
+        
           {isLoading ? (
             <Loader />
           ) : (
-            <div className="w-full mx-8 pt-1 mt-10 bg-white">
-              <DataGrid
+            <div className="w-full  pt-1 mt-10 bg-white">
+              {/* <DataGrid
                 rows={row}
                 columns={columns}
                 pageSize={10}
                 disableSelectionOnClick
                 autoHeight
-              />
+              /> */}
+              {/* <SearchAndFilter /> */}
+        
+              <AllProductsComponent products={products} />
             </div>
           )}
         </>

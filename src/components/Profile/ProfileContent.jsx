@@ -648,7 +648,7 @@ const Address = () => {
     <div className="w-full px-5">
       {open && (
         <div className="fixed address_modal w-full h-screen bg-[#0000004b] top-0 left-0 flex items-center justify-center ">
-          <div className="w-[35%] h-[80vh] bg-text_color p-6 no_scroll rounded shadow relative overflow-y-scroll">
+          <div className="lg:w-[35%] w-3/4 h-[80vh] bg-text_color p-6 no_scroll rounded shadow relative overflow-y-scroll">
             <div className="w-full flex justify-end p-3">
               <RxCross1
                 size={30}
@@ -656,9 +656,9 @@ const Address = () => {
                 onClick={() => setOpen(false)}
               />
             </div>
-            <h1 className="text-center text-[25px] font-Poppins">
+            <h3 className="text-left     font-Poppins">
               Add New Address
-            </h1>
+            </h3>
             <div className="w-full ">
               <form aria-required onSubmit={handleSubmit} className="w-full ">
                 <div className="w-full block  flex flex-col items-center gap-[1.5em] p-4">
@@ -703,8 +703,8 @@ const Address = () => {
                         State.getStatesOfCountry(country).map((item) => (
                           <option
                             className="block pb-2"
-                            key={item}
-                            value={item}
+                            key={item.isoCode}
+                            value={item.name}
                           >
                             {item.name}
                           </option>

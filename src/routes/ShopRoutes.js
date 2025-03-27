@@ -13,6 +13,7 @@ import ShopWithDrawMoneyPage from "../pages/Shop/ShopWithDrawMoneyPage";
 import ShopInboxPage from "../pages/Shop/ShopInboxPage";
 import ShopRemittance from "../pages/Shop/ShopRemittance";
 import ShopPromotions from "../pages/Shop/ShopPromotions";
+import SingleProductPage from "../pages/SingleProductPage";
 
 
 export {
@@ -30,5 +31,6 @@ export {
     ShopWithDrawMoneyPage,
     ShopInboxPage,
     ShopRemittance,
-    ShopPromotions
+    ShopPromotions,
+    SingleProductPage
 }

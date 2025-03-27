@@ -2,47 +2,41 @@ import axios from "axios";
 import { server } from "../../server";
 
 // create product
-export const createProduct =
-  (
-    name,
-    description,
-    category,
-    tags,
-    originalPrice,
-    discountPrice,
-    stock,
-    shopId,
-    images
-  ) =>
-  async (dispatch) => {
-    try {
-      dispatch({
-        type: "productCreateRequest",
-      });
+export const createProduct = (newForm) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "productCreateRequest",
+    });
 
-      const { data } = await axios.post(
-        `${server}/product/create-product`,
-        name,
-        description,
-        category,
-        tags,
-        originalPrice,
-        discountPrice,
-        stock,
-        shopId,
-        images,
-      );
-      dispatch({
-        type: "productCreateSuccess",
-        payload: data.product,
-      });
-    } catch (error) {
-      dispatch({
-        type: "productCreateFail",
-        payload: error.response.data.message,
-      });
-    }
-  };
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    };
+
+    const { data } = await axios.post(
+      `${server}/product/create-product`,
+      newForm,
+      config
+    );
+
+    dispatch({
+      type: "productCreateSuccess",
+      payload: data.product,
+    });
+  } catch (error) {
+    dispatch({
+      type: "productCreateFail",
+      payload: error.response.data.message,
+    });
+  }
+};
+
+
+
+
+
+  
 
 // get All Products of a shop
 export const getAllProductsShop = (id) => async (dispatch) => {
@@ -54,6 +48,8 @@ export const getAllProductsShop = (id) => async (dispatch) => {
     const { data } = await axios.get(
       `${server}/product/get-all-products-shop/${id}`
     );
+
+    
     dispatch({
       type: "getAllProductsShopSuccess",
       payload: data.products,
@@ -65,6 +61,40 @@ export const getAllProductsShop = (id) => async (dispatch) => {
     });
   }
 };
+
+export const updateProduct = (id, updatedProduct) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "updateProductRequest",
+    }); 
+
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        'token': localStorage.getItem('token'),
+      },
+    };  
+
+    const { data } = await axios.put(
+      `${server}/product/update-product/${id}`,
+      updatedProduct,
+      config
+    );
+
+    dispatch({
+      type: "updateProductSuccess",
+      payload: data.product,
+    });
+  } catch (error) { 
+    dispatch({
+      type: "updateProductFailed",
+      payload: error.response.data.message,
+    });
+  }
+};
+
+
+
 
 // delete product of a shop
 export const deleteProduct = (id) => async (dispatch) => {
@@ -107,6 +137,27 @@ export const getAllProducts = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: "getAllProductsFailed",
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// get product details
+export const getProductDetails = (id) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "getProductDetailsRequest",
+    });
+
+    const { data } = await axios.get(`${server}/product/get-product-details/${id}`);
+
+    dispatch({
+      type: "getProductDetailsSuccess",
+      payload: data.product,
+    });
+  } catch (error) {
+    dispatch({
+      type: "getProductDetailsFailed",
       payload: error.response.data.message,
     });
   }
