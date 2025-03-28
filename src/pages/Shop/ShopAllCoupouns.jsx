@@ -7,9 +7,9 @@ const ShopAllCoupouns = () => {
   return (
     <div>
       <div className="admin_container_div flex w-full">
-        <div className="w-[80px] 800px:w-[330px]">
+       
           <DashboardSideBar active={9} />
-        </div>
+        
         <div className="w-full">
           <DashboardHeader />
           <AllCoupons />

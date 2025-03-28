@@ -29,6 +29,9 @@ const AllCoupons = () => {
     axios
       .get(`${server}/coupon/get-coupon/${seller._id}`, {
         withCredentials: true,
+        headers: {
+          'token': localStorage.getItem('token')
+        },
       })
       .then((res) => {
         setIsLoading(false);
@@ -40,7 +43,11 @@ const AllCoupons = () => {
   }, [dispatch]);
 
   const handleDelete = async (id) => {
-    axios.delete(`${server}/coupon/delete-coupon/${id}`,{withCredentials: true}).then((res) => {
+    axios.delete(`${server}/coupon/delete-coupon/${id}`,{withCredentials: true,
+      headers: {
+        'token': localStorage.getItem('token')
+      },
+    }).then((res) => {
       toast.success("Coupon code deleted succesfully!")
     })
     window.location.reload();
@@ -60,6 +67,12 @@ const AllCoupons = () => {
           value,
           shopId: seller._id,
         },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            'token': localStorage.getItem('token')
+          },
+        },
         { withCredentials: true }
       )
       .then((res) => {
@@ -73,18 +86,29 @@ const AllCoupons = () => {
   };
 
   const columns = [
-    { field: "id", headerName: "Id", minWidth: 150, flex: 0.7 },
+    { 
+      field: "id", 
+      headerName: "Id", 
+      minWidth: 150, 
+      flex: 0.7,
+      headerClassName: 'font-Poppins text-[#17637C]',
+      cellClassName: 'font-Poppins text-[#17637C]'
+    },
     {
       field: "name",
       headerName: "Coupon Code",
       minWidth: 180,
       flex: 1.4,
+      headerClassName: 'font-Poppins text-[#17637C]',
+      cellClassName: 'font-Poppins text-[#17637C]'
     },
     {
       field: "price",
       headerName: "Value",
       minWidth: 100,
       flex: 0.6,
+      headerClassName: 'font-Poppins text-[#17637C]',
+      cellClassName: 'font-Poppins text-[#17637C]'
     },
     {
       field: "Delete",
@@ -93,11 +117,12 @@ const AllCoupons = () => {
       headerName: "",
       type: "number",
       sortable: false,
+      headerClassName: 'font-Poppins text-[#17637C]',
       renderCell: (params) => {
         return (
           <>
             <Button onClick={() => handleDelete(params.id)}>
-              <AiOutlineDelete size={20} />
+              <AiOutlineDelete size={20} className="text-primary_color" />
             </Button>
           </>
         );
@@ -122,118 +147,144 @@ const AllCoupons = () => {
       {isLoading ? (
         <Loader />
       ) : (
-        <div className="w-full mx-8 pt-1 mt-10 bg-white">
-          <div className="w-full flex justify-end">
+        <div className="w-full px-4 sm:px-6 lg:px-8 pt-1 mt-10 bg-white">
+          <div className="flex justify-between flex-wrap items-center mb-4">
+            <h3 className="font-bold text-primary_color"> Coupon & Discount Codes</h3>
             <div
-              className={`${styles.button} !w-max !h-[45px] px-3 !rounded-[5px] mr-3 mb-3`}
+              className={`${styles.button} !w-max !h-[45px] px-3 bg-primary_color  !rounded-[5px] mr-3 mb-3`}
               onClick={() => setOpen(true)}
             >
-              <span className="text-white">Create Coupon Code</span>
+              <span className="text-text_color text-sm ">Create Coupon Code</span>
             </div>
           </div>
-          <DataGrid
-            rows={row}
-            columns={columns}
-            pageSize={10}
-            disableSelectionOnClick
-            autoHeight
-          />
+          <div className="w-full overflow-x-auto">
+            <DataGrid
+              rows={row}
+              columns={columns}
+              pageSize={10}
+              disableSelectionOnClick
+              autoHeight
+              className="font-Poppins w-full"
+              sx={{
+                width: '100%',
+                '& .MuiDataGrid-columnHeaders': {
+                  backgroundColor: '#f8f9fa',
+                  borderBottom: '2px solid #e5e7eb',
+                },
+                '& .MuiDataGrid-cell': {
+                  borderBottom: '1px solid #e5e7eb',
+                },
+                '& .MuiDataGrid-row:hover': {
+                  backgroundColor: '#f8f9fa',
+                }
+              }}
+            />
+          </div>
           {open && (
             <div className="fixed top-0 left-0 w-full h-screen bg-[#00000062] z-[20000] flex items-center justify-center">
-              <div className="w-[90%] 800px:w-[40%] h-[80vh] bg-white rounded-md shadow p-4">
+              <div className="w-[90%] max-w-[500px] p-[2em] overflow-y-auto min-h-[80vh] md:max-h-[600px] bg-white_bg rounded-md shadow">
                 <div className="w-full flex justify-end">
                   <RxCross1
                     size={30}
-                    className="cursor-pointer"
+                    className="cursor-pointer hover:text-primary_color transition-colors"
                     onClick={() => setOpen(false)}
                   />
                 </div>
-                <h5 className="text-[30px] font-Poppins text-center">
+                <h3 className="text-left font-Poppins  mb-6">
                   Create Coupon code
-                </h5>
+                </h3>
                 {/* create coupoun code */}
-                <form onSubmit={handleSubmit} aria-required={true}>
-                  <br />
-                  <div>
-                    <label className="pb-2">
-                      Name <span className="text-red-500">*</span>
+                <form onSubmit={handleSubmit} aria-required={true} className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label className="block text-sm font-medium text-gray-700">
+                        Name <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        name="name"
+                        required
+                        value={name}
+                        className="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary_color focus:border-primary_color transition-all duration-200"
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="Enter your coupon code name..."
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="block text-sm font-medium text-gray-700">
+                        Discount Percentage <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        name="value"
+                        value={value}
+                        required
+                        className="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary_color focus:border-primary_color transition-all duration-200"
+                        onChange={(e) => setValue(e.target.value)}
+                        placeholder="Enter your coupon code value..."
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label className="block text-sm font-medium text-gray-700">
+                        Min Amount
+                      </label>
+                      <input
+                        type="number"
+                        name="value"
+                        value={minAmount}
+                        className="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary_color focus:border-primary_color transition-all duration-200"
+                        onChange={(e) => setMinAmout(e.target.value)}
+                        placeholder="Enter your coupon code min amount..."
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="block text-sm font-medium text-gray-700">
+                        Max Amount
+                      </label>
+                      <input
+                        type="number"
+                        name="value"
+                        value={maxAmount}
+                        className="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary_color focus:border-primary_color transition-all duration-200"
+                        onChange={(e) => setMaxAmount(e.target.value)}
+                        placeholder="Enter your coupon code max amount..."
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-gray-700">
+                      Selected Product
                     </label>
-                    <input
-                      type="text"
-                      name="name"
-                      required
-                      value={name}
-                      className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                      onChange={(e) => setName(e.target.value)}
-                      placeholder="Enter your coupon code name..."
-                    />
-                  </div>
-                  <br />
-                  <div>
-                    <label className="pb-2">
-                      Discount Percentenge{" "}
-                      <span className="text-red-500">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      name="value"
-                      value={value}
-                      required
-                      className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                      onChange={(e) => setValue(e.target.value)}
-                      placeholder="Enter your coupon code value..."
-                    />
-                  </div>
-                  <br />
-                  <div>
-                    <label className="pb-2">Min Amount</label>
-                    <input
-                      type="number"
-                      name="value"
-                      value={minAmount}
-                      className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                      onChange={(e) => setMinAmout(e.target.value)}
-                      placeholder="Enter your coupon code min amount..."
-                    />
-                  </div>
-                  <br />
-                  <div>
-                    <label className="pb-2">Max Amount</label>
-                    <input
-                      type="number"
-                      name="value"
-                      value={maxAmount}
-                      className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                      onChange={(e) => setMaxAmount(e.target.value)}
-                      placeholder="Enter your coupon code max amount..."
-                    />
-                  </div>
-                  <br />
-                  <div>
-                    <label className="pb-2">Selected Product</label>
                     <select
-                      className="w-full mt-2 border h-[35px] rounded-[5px]"
+                      className="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary_color focus:border-primary_color transition-all duration-200"
                       value={selectedProducts}
                       onChange={(e) => setSelectedProducts(e.target.value)}
                     >
-                      <option value="Choose your selected products">
+                      <option value="Choose your selected products" className="text-sm">
                         Choose a selected product
                       </option>
                       {products &&
                         products.map((i) => (
-                          <option value={i.name} key={i.name}>
+                          <option value={i.name} key={i.name} className="text-sm">
                             {i.name}
                           </option>
                         ))}
                     </select>
                   </div>
-                  <br />
-                  <div>
-                    <input
+
+                  <div className="pt-4">
+                    <button
                       type="submit"
-                      value="Create"
-                      className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                    />
+                      className="w-full bg-primary_color text-text_color px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition-all duration-200 transform hover:scale-[1.02]"
+                    >
+                      Create Coupon
+                    </button>
                   </div>
                 </form>
               </div>

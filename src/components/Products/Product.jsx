@@ -9,6 +9,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import AccountReview from "../Shop/AccountReview";
 import { server } from "../../server";
+import { TbReplace } from "react-icons/tb";
 
 import axios from "axios";
 // Dummy data
@@ -83,8 +84,9 @@ const Product = ({id}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // Add a state to track if initial data is loaded
   const [isInitialized, setIsInitialized] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [productData, setProductData] = useState(null);
 
   const [images, setImages] = useState([]);
   const [name, setName] = useState("");
@@ -121,7 +123,7 @@ const Product = ({id}) => {
   const [filteredMakes, setFilteredMakes] = useState([]);
   const [filteredBrands, setFilteredBrands] = useState([]);
   const [filteredModels, setFilteredModels] = useState([]);
-  const [loading, setLoading] = useState(true);
+
   // Quill editor modules configuration
   const modules = {
     toolbar: [
@@ -155,23 +157,23 @@ const Product = ({id}) => {
     
     // Mark as initialized
     setIsInitialized(true);
-    setLoading(false);
   }, []);
 
   //Product data fetch effect
   useEffect(() => {
     const fetchProductData = async () => {
       if (!id) {
-        setLoading(false);
+        setIsLoading(false);
         return;
       }
   
       try {
+        setIsLoading(true);
         const { data } = await axios.get(`${server}/product/get-product-details/${id}`);
   
         if (data.product) {
           const product = data.product;
-          console.log("Fetched Product:", product);
+          setProductData(product);
           
           // Set category first
           setCategory(product?.category || "");
@@ -221,7 +223,7 @@ const Product = ({id}) => {
         console.error("Error fetching product:", error);
         toast.error("Failed to fetch product data");
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
     };
   
@@ -269,10 +271,26 @@ const Product = ({id}) => {
 
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
-
-    setImages([]);
+    
+    // Check if adding new files would exceed the 10 image limit
+    if (images.length + files.length > 10) {
+      toast.error("You can only upload a maximum of 10 images");
+      return;
+    }
 
     files.forEach((file) => {
+      // Check file type
+      if (!file.type.startsWith('image/')) {
+        toast.error(`${file.name} is not an image file`);
+        return;
+      }
+
+      // Check file size (200KB = 200 * 1024 bytes)
+      if (file.size > 200 * 1024) {
+        toast.error(`${file.name} exceeds the 200KB size limit`);
+        return;
+      }
+
       const reader = new FileReader();
 
       reader.onload = () => {
@@ -284,14 +302,34 @@ const Product = ({id}) => {
     });
   };
 
+  // Add a function to handle single image replacement
+  const handleImageReplace = (e, index) => {
+    const file = e.target.files[0];
+    if (!file) return;
 
+    // Check file type
+    if (!file.type.startsWith('image/')) {
+      toast.error(`${file.name} is not an image file`);
+      return;
+    }
 
+    // Check file size (200KB = 200 * 1024 bytes)
+    if (file.size > 200 * 1024) {
+      toast.error(`${file.name} exceeds the 200KB size limit`);
+      return;
+    }
 
-  const tester = (e) => {
-    e.preventDefault();
-    console.log(weight);
-    toast.success("Tester");
-  } 
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        const newImages = [...images];
+        newImages[index] = reader.result;
+        setImages(newImages);
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
 
   const handleSubmit = async() => {
     
@@ -366,33 +404,27 @@ const Product = ({id}) => {
  
   };
 
-
-  // Only show loading when actually loading
-  if (loading && !isInitialized) {
-    return <div>Loading product data...</div>;
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div className="w-[95%] mx-auto bg-white rounded-[4px] py-8">
+        <div className="flex items-center justify-center min-h-[400px]">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary_color"></div>
+        </div>
+      </div>
+    );
   }
 
   // Don't show the loading message for seller, just render without the seller-specific content
   if (!seller) {
-  return (
-        <div className="w-[95%] mx-auto bg-white rounded-[4px] py-8">
+    return (
+      <div className="w-[95%] mx-auto bg-white rounded-[4px] py-8">
         <h2 className="font-Poppins font-semibold mb-8 text-primary_color">Product Details</h2>
         {/* Render the form without seller-specific features */}
         {/* ... rest of your form ... */}
-        </div>
-  );
-
+      </div>
+    );
   }
-
-//   // Debug what's being rendered
-//   console.log("Rendering with data:", {
-//     name,
-//     category,
-//     subCategory,
-//     make,
-//     brand,
-//     seller
-//   });
 
   return (
     <div className="w-[95%] mx-auto bg-white rounded-[4px] py-8">
@@ -673,6 +705,7 @@ const Product = ({id}) => {
                   id="upload"
                   name="upload"
                   multiple
+                  accept="image/*"
                   className="hidden"
                   onChange={handleImageChange}
                   required
@@ -684,7 +717,7 @@ const Product = ({id}) => {
                   <div className="text-center">
                     <i className="fas fa-cloud-upload-alt text-3xl text-gray-400"></i>
                     <p className="text-gray-500 mt-2">Click or drag images to upload</p>
-                    <p className="text-sm text-gray-400 mt-1">(Required)</p>
+                    <p className="text-sm text-gray-400 mt-1">(Maximum 10 images, 200KB each)</p>
                   </div>
                 </label>
                 {images.length > 0 && (
@@ -698,41 +731,28 @@ const Product = ({id}) => {
                         />
                         <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
                           <label 
-                            className="cursor-pointer bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600"
+                            className="cursor-pointer bg-primary_color text-text_color p-2 rounded-full hover:bg-primary_color/80"
                             title="Replace Image"
                           >
                             <input
                               type="file"
+                              accept="image/*"
                               className="hidden"
-                              onChange={(e) => {
-                                const file = e.target.files[0];
-                                if (file) {
-                                  const reader = new FileReader();
-                                  reader.onload = () => {
-                                    if (reader.readyState === 2) {
-                                      const newImages = [...images];
-                                      newImages[index] = reader.result;
-                                      setImages(newImages);
-                                    }
-                                  };
-                                  reader.readAsDataURL(file);
-                                }
-                              }}
+                              onChange={(e) => handleImageReplace(e, index)}
                             />
-                            <i className="fas fa-sync-alt text-sm"></i>
+                            <TbReplace className="text-lg" />
                           </label>
-                          
-                          <button
-                            className="bg-red-500 text-white p-2 rounded-full hover:bg-red-600"
-                            onClick={() => {
-                              const newImages = images.filter((_, i) => i !== index);
-                              setImages(newImages);
-                            }}
-                            title="Remove Image"
-                          >
-                            <i className="fas fa-trash text-sm"></i>
-                          </button>
                         </div>
+                        <button
+                          className="absolute top-2 right-2 bg-primary_color text-text_color w-6 h-6 rounded-full flex items-center justify-center hover:bg-primary_color/80 transition-colors"
+                          onClick={() => {
+                            const newImages = images.filter((_, i) => i !== index);
+                            setImages(newImages);
+                          }}
+                          title="Remove Image"
+                        >
+                          ×
+                        </button>
                       </div>
                     ))}
                   </div>
@@ -757,7 +777,7 @@ const Product = ({id}) => {
 
                 <div>
                   <label className="block text-sm font-medium text-primary_color mb-1">
-                    Refund Policy
+                    Refund / Return Policy
                   </label>
                   <textarea
                     value={refundPolicy}
@@ -778,7 +798,7 @@ const Product = ({id}) => {
                   >
                     <option value="No Taxes">No Taxes</option>
                     <option value="Inclusive">Inclusive</option>
-                    <option value="Exclusive">Exclusive</option>
+                    {/* <option value="Exclusive">Exclusive</option> */}
                   </select>
                 </div>
 

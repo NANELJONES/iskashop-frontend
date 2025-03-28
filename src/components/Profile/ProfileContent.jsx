@@ -3,6 +3,8 @@ import {
   AiOutlineArrowRight,
   AiOutlineCamera,
   AiOutlineDelete,
+  AiOutlineEye,
+  AiOutlineEyeInvisible,
 } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { server } from "../../server";
@@ -35,6 +37,9 @@ const ProfileContent = ({ active, setActive, isLoading, setIsLoading }) => {
   const [phoneNumber, setPhoneNumber] = useState(user && user.phoneNumber);
   const [password, setPassword] = useState("");
   const [avatar, setAvatar] = useState(null);
+  const [showOldPassword, setShowOldPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -275,7 +280,7 @@ const AllOrders = () => {
       
       {orders &&
         orders.map((item, index) => (
-          <Link to={`/user/order/${item._id}`}> 
+          <Link to={`/user/order/${item._id}`} key={index}> 
           <div key={item._id} className="   flex flex-col gap-4 py-3">
             <div className="flex gap-10  border-b-2 border-b-primary_color pb-4">
               <p><strong> Order Date:</strong> <br/> {moment(item.createdAt).format("D MMMM YYYY")}</p>
@@ -305,7 +310,7 @@ const AllOrders = () => {
 
               <p className="w-2/12">{item.cart.length}</p>
 
-              <p className="w-2/12 font-medium">US$ {item.totalPrice}</p>
+              <p className="w-2/12 font-medium">GH₵ {item.totalPrice}</p>
 
               <div className="w-1/12">
                 <Link to={`/user/order/${item._id}`}>
@@ -406,7 +411,7 @@ const AllRefundOrders = () => {
       row.push({
         id: item._id,
         itemsQty: item.cart.length,
-        total: "US$ " + item.totalPrice,
+        total: "GH₵ " + item.totalPrice,
         status: item.status,
       });
     });
@@ -491,7 +496,7 @@ const TrackOrder = () => {
       row.push({
         id: item._id,
         itemsQty: item.cart.length,
-        total: "US$ " + item.totalPrice,
+        total: "GH₵ " + item.totalPrice,
         status: item.status,
       });
     });
@@ -513,33 +518,39 @@ const ChangePassword = () => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showOldPassword, setShowOldPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const passwordChangeHandler = async (e) => {
     e.preventDefault();
-
-    await axios
-      .put(
+    setIsLoading(true);
+    try {
+      const res = await axios.put(
         `${server}/user/update-user-password`,
-        {headers: {
-          'token': localStorage.getItem('token')
-        }},
         { oldPassword, newPassword, confirmPassword },
-
-        { withCredentials: true }
-      )
-      .then((res) => {
-        toast.success(res.data.success);
-        setOldPassword("");
-        setNewPassword("");
-        setConfirmPassword("");
-      })
-      .catch((error) => {
-        toast.error(error.response.data.message);
-      });
+        {
+          headers: {
+            'token': localStorage.getItem('token')
+          },
+          withCredentials: true
+        }
+      );
+      toast.success("Password updated successfully!");
+      setOldPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to update password");
+    } finally {
+      setIsLoading(false);
+    }
   };
+
   return (
     <div className="w-full px-5">
-      <h1 className="block  text-left font-[600]  pb-2">
+      <h1 className="block text-left font-[600] pb-2">
         Change Password
       </h1>
       <div className="w-full">
@@ -548,41 +559,86 @@ const ChangePassword = () => {
           onSubmit={passwordChangeHandler}
           className="flex flex-col items-start"
         >
-          <div className=" w-[100%] 800px:w-[50%] mt-5">
+          <div className="w-[100%] 800px:w-[50%] mt-5">
             <label className="block pb-2">Enter your old password</label>
-            <input
-              type="password"
-              className={`${styles.input} !w-[95%] mb-4 800px:mb-0`}
-              required
-              value={oldPassword}
-              onChange={(e) => setOldPassword(e.target.value)}
-            />
+            <div className="relative">
+              <input
+                type={showOldPassword ? "text" : "password"}
+                className={`${styles.input} !w-[95%] mb-4 800px:mb-0 pr-10`}
+                required
+                value={oldPassword}
+                onChange={(e) => setOldPassword(e.target.value)}
+                disabled={isLoading}
+              />
+              <div 
+                className="absolute right-[30px] top-1/2 -translate-y-1/2 cursor-pointer"
+                onClick={() => setShowOldPassword(!showOldPassword)}
+              >
+                <AiOutlineEye 
+                  size={20} 
+                  className={`${showOldPassword ? 'text-primary_color' : 'text-gray-500'}`}
+                />
+              </div>
+            </div>
           </div>
-          <div className=" w-[100%] 800px:w-[50%] mt-2">
+
+          <div className="w-[100%] 800px:w-[50%] mt-2">
             <label className="block pb-2">Enter your new password</label>
-            <input
-              type="password"
-              className={`${styles.input} !w-[95%] mb-4 800px:mb-0`}
-              required
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-            />
+            <div className="relative">
+              <input
+                type={showNewPassword ? "text" : "password"}
+                className={`${styles.input} !w-[95%] mb-4 800px:mb-0 pr-10`}
+                required
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                disabled={isLoading}
+              />
+              <div 
+                className="absolute right-[30px] top-1/2 -translate-y-1/2 cursor-pointer"
+                onClick={() => setShowNewPassword(!showNewPassword)}
+              >
+                <AiOutlineEye 
+                  size={20} 
+                  className={`${showNewPassword ? 'text-primary_color' : 'text-gray-500'}`}
+                />
+              </div>
+            </div>
           </div>
-          <div className=" w-[100%] 800px:w-[50%] mt-2">
+
+          <div className="w-[100%] 800px:w-[50%] mt-2">
             <label className="block pb-2">Enter your confirm password</label>
-            <input
-              type="password"
-              className={`${styles.input} !w-[95%] mb-4 800px:mb-0`}
-              required
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-            <input
-              className={`w-[95%] h-[40px] border bg-primary_color text-text_color max-w-[150px] text-center  rounded-[3px] mt-8 cursor-pointer`}
-              required
-              value="Update"
+            <div className="relative">
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                className={`${styles.input} !w-[95%] mb-4 800px:mb-0 pr-10`}
+                required
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                disabled={isLoading}
+              />
+              <div 
+                className="absolute right-[30px] top-1/2 -translate-y-1/2 cursor-pointer"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              >
+                <AiOutlineEye 
+                  size={20} 
+                  className={`${showConfirmPassword ? 'text-primary_color' : 'text-gray-500'}`}
+                />
+              </div>
+            </div>
+            <button
+              className={`w-[95%] h-[40px] border bg-primary_color text-text_color max-w-[150px] text-center rounded-[3px] mt-8 cursor-pointer flex items-center justify-center ${
+                isLoading ? 'opacity-70 cursor-not-allowed' : ''
+              }`}
               type="submit"
-            />
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <div className="w-5 h-5 border-2 border-text_color border-t-transparent rounded-full animate-spin"></div>
+              ) : (
+                "Update"
+              )}
+            </button>
           </div>
         </form>
       </div>

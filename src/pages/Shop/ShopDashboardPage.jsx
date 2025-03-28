@@ -7,10 +7,10 @@ const ShopDashboardPage = () => {
   return (
         <div>
         
-          <div className="admin_container_div  w-full">
-            <div className="w-[80px] 800px:w-[330px]">
+          <div className="admin_container_div flex w-full">
+           
               <DashboardSideBar active={1} />
-            </div>
+       
         <div className="w-full">
           <DashboardHeader />
           <DashboardHero />

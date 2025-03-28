@@ -403,6 +403,9 @@ const AllVendorPromotions = () => {
                 <th className="px-6 py-3 text-left text-xs font-medium text-primary_color uppercase tracking-wider">
                   Cost
                 </th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-primary_color uppercase tracking-wider">
+                  Views
+                </th>
                 {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Actions
                 </th> */}
@@ -461,6 +464,9 @@ const AllVendorPromotions = () => {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     GH₵{promotion.total_cost.toFixed(2)}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {promotion.view_count || 0}
                   </td>
 
 {/*                   

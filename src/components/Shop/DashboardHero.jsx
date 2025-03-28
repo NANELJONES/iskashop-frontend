@@ -26,7 +26,7 @@ const DashboardHero = () => {
      dispatch(getAllOrdersOfShop(seller._id));
      dispatch(getAllProductsShop(seller._id));
 
-     console.log(orders);
+     console.log(seller);
      
   }, [dispatch]);
 
@@ -95,7 +95,7 @@ const DashboardHero = () => {
       renderCell: (params) => {
         return (
           <>
-            <Link to={`/dashboard/order/${params.id}`}>
+            <Link to={`/order/${params.id}`}>
               <Button>
                 <AiOutlineArrowRight size={20} />
               </Button>
@@ -129,28 +129,20 @@ const DashboardHero = () => {
     )}
 
  {seller.adminData.shopApproval === "Approved" && (
-    <div className="w-full p-8">
+    <div className="w-full md:w-[90%] p-8">
     <h1 className="font-Poppins pb-2">Overview</h1>
-    <div className="w-full grid grid-row-1 grid-cols-1 md:grid-cols-3 gap-4">
-
-<AnimateDown>
-      <DataCard heading="All Orders" value={orders && orders.length} icon={<MdBorderClear size={20} className="mr-2 " fill="primary_color" />} link="/dashboard-orders" />
-</AnimateDown>
-
-
-
-<AnimateDown>
-      <DataCard heading="Promotions" value="0" icon={<FaPaperPlane size={20} className="mr-2 text-primary_color "  fill="primary_color" />} link="/shop-promotions" />
-</AnimateDown>
-
-
-
+      <div className="w-full grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <AnimateDown>
+        <DataCard heading="All Orders" value={orders && orders.length} icon={<MdBorderClear size={20} className="mr-2 " fill="primary_color" />} link="/dashboard-orders" />
+      </AnimateDown>
 
       <AnimateDown>
-      <DataCard heading="All Products" value={products && products.length} icon={<MdBorderClear size={20} className="mr-2 " fill="primary_color" />} link="/dashboard-products" />
-</AnimateDown>
+        <DataCard heading="Promotions" value={seller?.promotions?.length} icon={<FaPaperPlane size={20} className="mr-2 text-primary_color "  fill="primary_color" />} link="/shop-promotions" />
+      </AnimateDown>
 
-  
+      <AnimateDown>
+        <DataCard heading="All Products" value={products && products.length} icon={<MdBorderClear size={20} className="mr-2 " fill="primary_color" />} link="/dashboard-products" />
+      </AnimateDown>
     </div>
 
 

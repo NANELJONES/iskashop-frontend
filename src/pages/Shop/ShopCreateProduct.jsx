@@ -7,9 +7,9 @@ const ShopCreateProduct = () => {
   return (
     <div>
       <div className="admin_container_div flex w-full">
-        <div className="w-[80px] 800px:w-[330px]">
+       
           <DashboardSideBar active={4} />
-        </div>
+     
         <div className="w-full">
           <DashboardHeader />
           <CreateProduct />

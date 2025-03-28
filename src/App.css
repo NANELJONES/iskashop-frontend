@@ -214,8 +214,23 @@ span{
   color: white !important;
 }
   
-  
+.responsive_grid{
+ display: grid;
+}
 
+.responsive_grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 1rem;
+  width: 100%;
+}
+
+.responsive_grid > * {
+  width: 100%;
+  min-width: 150px;
+  max-width: 300px;
+  margin: 0 auto;
+}
 
 .custom-prev,
 .custom-next {

@@ -8,6 +8,19 @@ import { BiMessageSquareDetail } from "react-icons/bi";
 
 const DashboardHeader = () => {
   const { seller } = useSelector((state) => state.seller);
+  console.log(seller);  
+  // Add check for seller data
+  if (!seller) {
+    return (
+      <div className="w-full bg-primary_color shadow p-[3em] flex flex-col items-start">
+        <div className="animate-pulse">
+          <div className="h-4 bg-text_color/20 rounded w-24 mb-2"></div>
+          <div className="h-6 bg-text_color/20 rounded w-48"></div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full bg-primary_color shadow p-[3em]  flex flex-col items-start ">
     <h5 className='text-text_color'>Welcome</h5>

@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 const DataCard = ({heading, value, icon, link}) => {
   return (
-    <div className='card p-[1em] bg-white max-w-[300px] shadow rounded '>
+    <div className='w-auto card p-[1em] bg-white  shadow rounded '>
       <div className='flex items-center'>
         {icon}
         <p className='leading-5 !font-[400]'>{heading}</p>
